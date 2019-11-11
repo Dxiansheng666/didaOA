@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.mapper.StudentMapper">
+<select id="getStudnetInfo" parameterType="int" resultType="student">
+    select * from student inner join user on user.uid=studnet.uid inner join classes on classes.class_id = student.class_id
+</select>
+    <update id="updateStudentInfo" parameterType="int">
+        update student set sname=#{sname},ssex=#{ssex},sage=#{sage},sphone=#{sphone},semail=#{semail} where sid=#{sid}
+    </update>
+<update id="updateUpwd" parameterType="int">
+    update user set upwd=#{upwd} where uid=#{uid}
+</update>
+    <insert id="addWeekReport" parameterType="int">
+        insert into weekreport (title,create_date,info) values (#{title},#{create_date},#{info})
+    </insert>
+    <delete id="deleteWeekReport" parameterType="int">
+        delete from weekreport where sid =#{sid}
+    </delete>
+    <select id="getWeekReport" parameterType="int" resultType="weekReport">
+        select * from weekreport where sid =#{sid}
+    </select>
+    <select id="getWeekReportScore" resultType="java.lang.String" parameterType="int">
+        select score from weekreport where sid=#{sid}
+    </select>
+    <select id="getRoleNameList" resultType="user">
+        select rolename from user where uid =#{uid}
+    </select>
+</mapper>
