@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface CourseMapper {
     //增加课程
-    public int addCourse(Course course);
+    public int addCourse(String course_name);
     //减少
     public int deleteCourse(int course_id);
     //修改
