@@ -1,12 +1,18 @@
-package com.qf.service;
+package com.qf.mapper;
 
 import com.qf.pojo.User;
 
-public interface UserService {
+/**
+ * @author FJM
+ * @create 2019/11/11
+ * @Time 14:15
+ */
+public interface UserMapper {
+
     //通过名字得到密码
     public String getUpwdByUname(String uname);
     //通过名字得到角色
-    public String getRoleByUname(String uname);
+    public String getRolenameByUname(String uname);
     //通过名字得到对象信息
     public User getUserByUname(String uname);
 }
