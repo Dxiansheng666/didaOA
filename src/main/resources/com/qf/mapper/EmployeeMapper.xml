@@ -6,4 +6,7 @@
     <select id="getHeadMasterByUid" parameterType="int" resultType="Employee">
         select * from employee where uid=#{uid}
     </select>
+    <delete id="deleteEmployeeByUid" parameterType="int">
+        delete from employee where uid=#{uid}
+    </delete>
 </mapper>

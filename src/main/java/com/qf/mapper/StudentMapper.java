@@ -1,5 +1,4 @@
 package com.qf.mapper;
-
 import com.qf.pojo.Student;
 import com.qf.pojo.Student_Holiday;
 import com.qf.pojo.User;
@@ -7,7 +6,18 @@ import com.qf.pojo.WeekReport;
 
 import java.util.List;
 
+/**
+ * @author FJM
+ * @create 2019/11/11
+ * @Time 19:36
+ */
 public interface StudentMapper {
+    //通过uid查询sid，用于成绩表的删除
+    public int getSidByUid(int uid);
+    //通过uid删除学生
+    public int deleteStudent(int uid);
+
+
     //查看个人资料
     public Student getStudnetInfo(int sid);
     //修改个人资料
