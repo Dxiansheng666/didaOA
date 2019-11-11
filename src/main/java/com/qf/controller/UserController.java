@@ -22,6 +22,8 @@ import javax.servlet.http.HttpSession;
 public class UserController {
     @Autowired
     private SecurityManager securityManager;
+    @Autowired
+    private UserService userService;
 
     @RequestMapping("loginPage")
     public String loginPage(){
@@ -36,7 +38,8 @@ public class UserController {
         try{
             subject.login(usernamePasswordToken);
             if (subject.isAuthenticated()){
-                session.setAttribute("uname",uname);
+                User user = userService.getUserByUname(uname);
+                session.setAttribute("user",user);
                 return "redirect:index";
             }
         }catch (Exception e){
