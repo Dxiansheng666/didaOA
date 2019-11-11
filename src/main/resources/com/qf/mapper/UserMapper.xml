@@ -13,4 +13,7 @@
     <select id="getUserByUname" parameterType="java.lang.String" resultType="user">
         select * from user where uname=#{uname}
     </select>
+    <update id="updateUpwdByUid">
+        update user set upwd=#{arg0} where uid=#{arg1}
+    </update>
 </mapper>
