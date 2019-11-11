@@ -9,6 +9,6 @@ public interface EmployeeMapper {
     public Employee getHeadMasterByUid(int uid);
 
     /**
-     *修改密码
+     *
      */
 }
