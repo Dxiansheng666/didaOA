@@ -1,7 +1,7 @@
 package com.qf.pojo;
 
 public class Student {
-    private String sid;
+    private int sid;
     private String sname;
     private String ssex;
     private String sage;
@@ -10,11 +10,11 @@ public class Student {
     private User user;
     private Classes classes;
 
-    public String getSid() {
+    public int getSid() {
         return sid;
     }
 
-    public void setSid(String sid) {
+    public void setSid(int sid) {
         this.sid = sid;
     }
 
