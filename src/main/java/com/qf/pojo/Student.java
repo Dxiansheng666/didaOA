@@ -1,22 +1,16 @@
 package com.qf.pojo;
 
 public class Student {
-    private String sid;
+    private int sid;
     private String sname;
     private String ssex;
     private String sage;
-    private String sphone;
+    private int sphone;
     private String semail;
     private User user;
     private Classes classes;
 
-    public String getSid() {
-        return sid;
-    }
 
-    public void setSid(String sid) {
-        this.sid = sid;
-    }
 
     public String getSname() {
         return sname;
@@ -42,11 +36,19 @@ public class Student {
         this.sage = sage;
     }
 
-    public String getSphone() {
+    public int getSid() {
+        return sid;
+    }
+
+    public void setSid(int sid) {
+        this.sid = sid;
+    }
+
+    public int getSphone() {
         return sphone;
     }
 
-    public void setSphone(String sphone) {
+    public void setSphone(int sphone) {
         this.sphone = sphone;
     }
 
@@ -88,7 +90,7 @@ public class Student {
                 '}';
     }
 
-    public Student(String sname, String ssex, String sage, String sphone, String semail, User user, Classes classes) {
+    public Student(String sname, String ssex, String sage, int sphone, String semail, User user, Classes classes) {
         this.sname = sname;
         this.ssex = ssex;
         this.sage = sage;
