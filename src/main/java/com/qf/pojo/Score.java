@@ -2,10 +2,27 @@ package com.qf.pojo;
 
 public class Score {
     private int score_id;
-    private int sid;
-    private int course_id;
+    private Student student;
+    private Course course;
     private String score;
     private String stage;
+
+    public Score(int score_id, Student student, Course course, String score, String stage) {
+        this.score_id = score_id;
+        this.student = student;
+        this.course = course;
+        this.score = score;
+        this.stage = stage;
+    }
+
+    public Score(int score_id, String score, String stage) {
+        this.score_id = score_id;
+        this.score = score;
+        this.stage = stage;
+    }
+
+    public Score() {
+    }
 
     public int getScore_id() {
         return score_id;
@@ -15,20 +32,20 @@ public class Score {
         this.score_id = score_id;
     }
 
-    public int getSid() {
-        return sid;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setSid(int sid) {
-        this.sid = sid;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
-    public int getCourse_id() {
-        return course_id;
+    public Course getCourse() {
+        return course;
     }
 
-    public void setCourse_id(int course_id) {
-        this.course_id = course_id;
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
     public String getScore() {
@@ -51,20 +68,10 @@ public class Score {
     public String toString() {
         return "Score{" +
                 "score_id=" + score_id +
-                ", sid=" + sid +
-                ", course_id=" + course_id +
+                ", student=" + student +
+                ", course=" + course +
                 ", score='" + score + '\'' +
                 ", stage='" + stage + '\'' +
                 '}';
-    }
-
-    public Score(int sid, int course_id, String score, String stage) {
-        this.sid = sid;
-        this.course_id = course_id;
-        this.score = score;
-        this.stage = stage;
-    }
-
-    public Score() {
     }
 }
