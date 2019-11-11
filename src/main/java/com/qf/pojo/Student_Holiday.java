@@ -9,6 +9,7 @@ public class Student_Holiday {
     private int teacher_state;
     private int headmaster;
     private int boss;
+    private User user;//假条申请人
 
     public int getHid() {
         return hid;
@@ -74,6 +75,29 @@ public class Student_Holiday {
         this.boss = boss;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Student_Holiday(int hid, int uid, String start_date, String end_date, String reason, int teacher_state, int headmaster, int boss, User user) {
+        this.hid = hid;
+        this.uid = uid;
+        this.start_date = start_date;
+        this.end_date = end_date;
+        this.reason = reason;
+        this.teacher_state = teacher_state;
+        this.headmaster = headmaster;
+        this.boss = boss;
+        this.user = user;
+    }
+
+    public Student_Holiday() {
+    }
+
     @Override
     public String toString() {
         return "Student_Holiday{" +
@@ -85,19 +109,7 @@ public class Student_Holiday {
                 ", teacher_state=" + teacher_state +
                 ", headmaster=" + headmaster +
                 ", boss=" + boss +
+                ", user=" + user +
                 '}';
-    }
-
-    public Student_Holiday(int uid, String start_date, String end_date, String reason, int teacher_state, int headmaster, int boss) {
-        this.uid = uid;
-        this.start_date = start_date;
-        this.end_date = end_date;
-        this.reason = reason;
-        this.teacher_state = teacher_state;
-        this.headmaster = headmaster;
-        this.boss = boss;
-    }
-
-    public Student_Holiday() {
     }
 }

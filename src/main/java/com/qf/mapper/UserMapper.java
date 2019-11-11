@@ -15,4 +15,7 @@ public interface UserMapper {
     public String getRolenameByUname(String uname);
     //通过名字得到对象信息
     public User getUserByUname(String uname);
+
+    //修改密码
+    public int updateUpwdByUid(String upwd,int uid);
 }
