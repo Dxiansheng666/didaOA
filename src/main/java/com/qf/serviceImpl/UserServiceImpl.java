@@ -11,10 +11,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
-    @Override
-    public String UserLogin(User user) {
-        return userMapper.UserLogin(user);
-    }
 
     @Override
     public String getUpwdByUname(String uname) {
@@ -24,5 +20,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public String getRoleByUname(String uname) {
         return userMapper.getRolenameByUname(uname);
+    }
+
+    @Override
+    public User getUserByUname(String uname) {
+        return userMapper.getUserByUname(uname);
     }
 }
