@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qf.mapper.StudentMapper">
 <select id="getStudnetInfo" parameterType="int" resultType="student">
-    select * from student inner join user on user.uid=studnet.uid inner join classes on classes.class_id = student.class_id
+    select * from student inner join user on user.uid=studnet.uid inner join classes on classes.class_id = student.class_id and sid=#{sid}
 </select>
     <update id="updateStudentInfo" parameterType="int">
         update student set sname=#{sname},ssex=#{ssex},sage=#{sage},sphone=#{sphone},semail=#{semail} where sid=#{sid}
