@@ -19,4 +19,6 @@ public interface RoleMapper {
     public int updateRole(String rolename,int roleid);
     //查询角色
     public List<Role> getRoleList();
+    //通过角色id得到角色信息
+    public Role getRolenameById(int roleid);
 }
