@@ -26,7 +26,7 @@
     </update>
 
 
-    <select id="getApproveHolidayList" resultMap="studentholidayMap">
+    <select id="getApproveHolidayList" resultMap="studentHolidayMap">
         select * from student_holiday inner join student on student.uid=student_holiday.uid
         <choose>
             <when test="list != null and list.size > 0">
