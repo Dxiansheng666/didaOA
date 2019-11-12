@@ -18,6 +18,7 @@
     <delete id="deleteWeekReport" parameterType="int">
         delete from weekreport where sid =#{sid}
     </delete>
+
     <select id="getWeekReport" parameterType="int" resultType="weekReport">
         select * from weekreport where sid =#{sid}
     </select>
