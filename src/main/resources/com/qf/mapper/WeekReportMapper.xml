@@ -3,7 +3,31 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qf.mapper.WeekReportMapper">
+    <resultMap id="weekReportMap" type="weekReport">
+        <id property="wid" column="wid"></id>
+        <result column="title" property="title"></result>
+        <result property="create_date" column="create_date"></result>
+        <result column="info" property="info"></result>
+        <result property="score" column="score"></result>
+        <result column="state" property="state"></result>
+        <result property="sid" column="sid"></result>
+        <association property="student" column="sid" select="getStudnetInfo" javaType="student"></association>
+    </resultMap>
     <delete id="deleteWeekReportBySid" parameterType="int">
         delete from weekreport where sid = #{sid}
     </delete>
+    <select id="getWeekReportList" parameterType="student" resultMap="weekReportMap">
+        select * from weekreport
+        <choose>
+            <when test="list != null and list.size > 0">
+                and sid in
+                <foreach collection="list" item="i" separator="," open="(" close=")">
+                    #{i.sid}
+                </foreach>
+            </when>
+            <otherwise>
+                and sid=0
+            </otherwise>
+        </choose>
+    </select>
 </mapper>
