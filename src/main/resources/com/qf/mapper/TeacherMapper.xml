@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qf.mapper.TeacherMapper">
-<select id="getT getStudent_HolidayListacherByUid" parameterType="int" resultType="employee">
+<select id="getTeacherByUid" parameterType="int" resultType="employee">
     select * from employee where uid=#{uid}
 </select>
     <update id="updateUpwdByUname" parameterType="user">
@@ -16,7 +16,7 @@
         update weekreport set score=#{score},state=#{state} where wid=#{wid}
     </update>
 
-<resultMap id="student_HolidayListMap" type="student_HolidayList">
+<resultMap id="student_HolidayMap" type="student_Holiday">
     <id property="hid" column="hid"></id>
     <result property="start_date" column="start_date"></result>
     <result property="end_date" column="end_date"></result>
@@ -29,7 +29,7 @@
 
 
 </resultMap>
-    <select id="getStudent_HolidayList" resultMap="student_HolidayListMap">
+    <select id="getStudent_HolidayList" resultMap="student_HolidayMap">
         select * from student_holiday inner join user on student_holiday.uid=user.uid
         where hid in
         <foreach collection="list" item="i" separator="," open="(" close=")">
@@ -79,7 +79,7 @@
     <select id="getUidByRoleName" resultType="user">
         select * from user where rolename='校长'
     </select>
-    <insert id="addEmployeeHoliday" parameterType="employeeHoliday">
+    <insert id="addEmployeeHoliday" parameterType="employee_Holiday">
         insert into employee_holiday(uid,start_date,end_date,reason,boss) values (#{uid},#{start_date},#{end_date},#{reason},#{boss})
     </insert>
 </mapper>

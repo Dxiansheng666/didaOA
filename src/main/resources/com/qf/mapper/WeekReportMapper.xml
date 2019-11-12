@@ -16,18 +16,7 @@
     <delete id="deleteWeekReportBySid" parameterType="int">
         delete from weekreport where sid = #{sid}
     </delete>
-    <select id="getWeekReportList" parameterType="student" resultMap="weekReportMap">
-        select * from weekreport
-        <choose>
-            <when test="list != null and list.size > 0">
-                and sid in
-                <foreach collection="list" item="i" separator="," open="(" close=")">
-                    #{i.sid}
-                </foreach>
-            </when>
-            <otherwise>
-                and sid=0
-            </otherwise>
-        </choose>
+    <select id="getWeekReportListBySid" parameterType="int" resultMap="weekReportMap">
+        select * from weekreport where sid=#{sid}
     </select>
 </mapper>

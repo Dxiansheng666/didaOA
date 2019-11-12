@@ -1,7 +1,9 @@
 package com.qf.serviceImpl;
 
 import com.qf.mapper.EmployeeMapper;
+import com.qf.mapper.StudentMapper;
 import com.qf.mapper.UserMapper;
+import com.qf.mapper.WeekReportMapper;
 import com.qf.pojo.*;
 import com.qf.service.HeadMasterService;
 import com.qf.util.MD5Utils;
@@ -15,6 +17,10 @@ public class HeadMasterServiceImpl implements HeadMasterService {
     private EmployeeMapper employeeMapper;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private WeekReportMapper weekReportMapper;
+    @Autowired
+    private StudentMapper studentMapper;
     //获取个人资料
     @Override
     public Employee getHeadMasterByUid(int uid) {
@@ -25,10 +31,10 @@ public class HeadMasterServiceImpl implements HeadMasterService {
     public int updateUpwdByUid(User user) {
         return userMapper.updateUpwdByUid(MD5Utils.md5(user.getUpwd()),user.getUid());
     }
-    //获取班级周报信息
+    //获取学生周报信息
     @Override
-    public List<WeekReport> getWeekReportListByUid(int uid) {
-        return null;
+    public List<WeekReport> getWeekReportListBySid(int sid) {
+        return weekReportMapper.getWeekReportListBySid(sid);
     }
     //获取班级学生信息
     @Override

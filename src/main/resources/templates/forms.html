@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+
 <html>
   <head>
     <meta charset="utf-8">
@@ -315,42 +317,48 @@
                       </div>
                     </div>
                     <div class="card-header d-flex align-items-center">
-                      <h3 class="h4">All form elements</h3>
+                      <h3 class="h4">个人资料</h3>
                     </div>
                     <div class="card-body">
                       <form class="form-horizontal">
                         <div class="form-group row">
-                          <label class="col-sm-3 form-control-label">Normal</label>
+                          <label class="col-sm-3 form-control-label">姓名</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" th:value="${person.ename}" readonly="readonly">
                           </div>
                         </div>
                         <div class="line"></div>
                         <div class="form-group row">
-                          <label class="col-sm-3 form-control-label">Help text</label>
+                          <label class="col-sm-3 form-control-label">性别</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control"><small class="help-block-none">A block of help text that breaks onto a new line and may extend beyond one line.</small>
+                            <input type="text" class="form-control" th:value="${person.esex}" readonly="readonly">
                           </div>
                         </div>
                         <div class="line"></div>
                         <div class="form-group row">
-                          <label class="col-sm-3 form-control-label">Password</label>
+                          <label class="col-sm-3 form-control-label">密码</label>
                           <div class="col-sm-9">
-                            <input type="password" name="password" class="form-control">
+                            <input type="password" name="password" class="form-control" th:value="${session.getAttribute('user').upwd}">
                           </div>
                         </div>
                         <div class="line"></div>
                         <div class="form-group row">
-                          <label class="col-sm-3 form-control-label">Placeholder</label>
+                          <label class="col-sm-3 form-control-label">年龄</label>
                           <div class="col-sm-9">
-                            <input type="text" placeholder="placeholder" class="form-control">
+                            <input type="text" class="form-control" th:value="${person.eage}" readonly="readonly">
                           </div>
                         </div>
                         <div class="line"></div>
                         <div class="form-group row">
-                          <label class="col-sm-3 form-control-label">Disabled</label>
+                          <label class="col-sm-3 form-control-label">手机号</label>
                           <div class="col-sm-9">
-                            <input type="text" disabled="" placeholder="Disabled input here..." class="form-control">
+                            <input type="text" disabled="" class="form-control" th:value="${person.ephone}" readonly="readonly">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-sm-3 form-control-label">邮箱</label>
+                          <div class="col-sm-9">
+                            <input type="text" disabled="" class="form-control" th:value="${person.eemail}" readonly="readonly">
                           </div>
                         </div>
                         <div class="line"></div>
@@ -425,25 +433,7 @@
                           </div>
                         </div>
                         <div class="line"></div>
-                        <div class="form-group row">
-                          <label class="col-sm-3 form-control-label">Select</label>
-                          <div class="col-sm-9">
-                            <select name="account" class="form-control mb-3">
-                              <option>option 1</option>
-                              <option>option 2</option>
-                              <option>option 3</option>
-                              <option>option 4</option>
-                            </select>
-                          </div>
-                          <div class="col-sm-9 offset-sm-3">
-                            <select multiple="" class="form-control">
-                              <option>option 1</option>
-                              <option>option 2</option>
-                              <option>option 3</option>
-                              <option>option 4</option>
-                            </select>
-                          </div>
-                        </div>
+
                         <div class="line"></div>
                         <div class="form-group row">
                           <label for="fileInput" class="col-sm-3 form-control-label">File input</label>
