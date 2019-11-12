@@ -15,4 +15,7 @@
     <select id="getRoleList" resultType="role">
         select * from role
     </select>
+    <select id="getRolenameById" parameterType="int" resultType="java.lang.String">
+        select * from role where roleid=#{roleid}
+    </select>
 </mapper>
