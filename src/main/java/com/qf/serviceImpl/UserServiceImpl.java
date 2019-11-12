@@ -76,4 +76,19 @@ public class UserServiceImpl implements UserService {
     public List<User> getLikeUser(int uid, String uname, String rolename) {
         return userMapper.getLikeUser(uid, "%"+uname+"%", rolename);
     }
+
+    @Override
+    public String getRolenameByUid(int uid) {
+        return userMapper.getRolenameByUid(uid);
+    }
+
+    @Override
+    public int getUidByPinyin(String pinyin) {
+        return userMapper.getUidByPinyin(pinyin);
+    }
+
+    @Override
+    public List<String> getTea(String rolename) {
+        return userMapper.getTea(rolename);
+    }
 }

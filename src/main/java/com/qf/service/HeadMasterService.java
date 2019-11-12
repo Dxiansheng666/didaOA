@@ -18,7 +18,7 @@ public interface HeadMasterService {
     /**
      * 查看周报
      */
-    public List<WeekReport> getWeekReportListBySid(int sid);
+    public List<WeekReport> getWeekReportListByUid(int uid);
 
     /**
      * 查看班级学生信息
@@ -43,5 +43,10 @@ public interface HeadMasterService {
     /**
      * 审批学生请假
      */
-    public int updateStudentHoliday();
+    public int updateStudentHoliday(int hid,int state,String ename);
+
+    /*
+    获取待审批假条
+     */
+    List<Student_Holiday> getStudentHolidayByUid(int uid);
 }

@@ -1,6 +1,7 @@
 package com.qf.serviceImpl;
 
 import com.qf.mapper.RoleMapper;
+import com.qf.mapper.UserMapper;
 import com.qf.pojo.Role;
 import com.qf.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ import java.util.List;
 public class RoleServiceImpl implements RoleService {
     @Autowired
     private RoleMapper roleMapper;
+    @Autowired
+    private UserMapper userMapper;
     @Override
     public int addRole(String rolename) {
         return roleMapper.addRole(rolename);
@@ -24,6 +27,8 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public int deleteRole(int roleid) {
+        Role role = roleMapper.getRolenameById(roleid);
+        userMapper.updateUserByDeleteRole(role.getRolename());
         return roleMapper.deleteRole(roleid);
     }
 
@@ -35,5 +40,10 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<Role> getRoleList() {
         return roleMapper.getRoleList();
+    }
+
+    @Override
+    public Role getRolenameById(int roleid) {
+        return roleMapper.getRolenameById(roleid);
     }
 }

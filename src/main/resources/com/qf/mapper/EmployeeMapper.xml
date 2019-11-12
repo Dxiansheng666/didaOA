@@ -23,4 +23,7 @@
         update employee set eid=#{eid},ename=#{ename},esex=#{esex},eage=#{eage},ephone=#{ephone},eemail=#{eemail},
         job=#{job} where uid = #{uid}
     </update>
+    <select id="getEmpByEname" parameterType="java.lang.String" resultType="employee">
+        select * from employee where ename=#{ename}
+    </select>
 </mapper>

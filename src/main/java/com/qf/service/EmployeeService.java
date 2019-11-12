@@ -1,15 +1,15 @@
-package com.qf.mapper;
+package com.qf.service;
+
 import com.qf.pojo.Employee;
-import com.qf.pojo.Score;
 
 import java.util.List;
 
 /**
  * @author FJM
- * @create 2019/11/11
- * @Time 20:22
+ * @create 2019/11/12
+ * @Time 11:37
  */
-public interface EmployeeMapper {
+public interface EmployeeService {
     //如果是员工的话通过uid删除员工信息
     public int deleteEmployeeByUid(int uid);
     /*
@@ -27,5 +27,4 @@ public interface EmployeeMapper {
     public Employee getEmployeeByUid(int uid);
     //搜索员工，用姓名
     public Employee getEmpByEname(String ename);
-
 }
