@@ -7,6 +7,15 @@ public class Employee_Holiday {
     private String end_date;
     private String reason;
     private int boss;
+    private Employee employee;
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
 
     public int getHid() {
         return hid;
