@@ -1,5 +1,4 @@
 package com.qf.mapper;
-import com.qf.pojo.Student;
 import com.qf.pojo.WeekReport;
 
 import java.util.List;
@@ -13,7 +12,7 @@ import java.util.List;
 public interface WeekReportMapper {
     //通过sid删除周报
     public int deleteWeekReportBySid(int sid);
-    //获取班级周报
-    List<WeekReport> getWeekReportList(List<Student> list);
+    //通过sid获取周报
+    List<WeekReport> getWeekReportListBySid(int sid);
 
 }
