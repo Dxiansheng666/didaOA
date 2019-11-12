@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.mapper.BossMapper">
+    <resultMap id="holidayMap" type="student_Holiday">
+        <id property="hid" column="hid"></id>
+        <result property="uid" column="uid"></result>
+        <result property="start_date" column="start_date"></result>
+        <result property="end_state" column="end_state"></result>
+        <result property="reason" column="reason"></result>
+        <result property="teacher_state" column="teacher_state"></result>
+        <result property="headmaster" column="headmaster"></result>
+        <result property="boss" column="boss"></result>
+        <association property="user" javaType="user" column="uid">
+            <id property="uid" column="uid"></id>
+            <result property="uname" column="uname"></result>
+            <result property="upwd" column="upwd"></result>
+            <result property="rolename" column="rolename"></result>
+        </association>
+    </resultMap>
+    <resultMap id="HolidayMap" type="employee_Holiday">
+        <id property="hid" column="hid"></id>
+        <result property="uid" column="uid"></result>
+        <result property="start_date" column="start_date"></result>
+        <result property="end_state" column="end_state"></result>
+        <result property="reason" column="reason"></result>
+        <result property="boss" column="boss"></result>
+        <association property="user" javaType="user" column="uid">
+            <id property="uid" column="uid"></id>
+            <result property="uname" column="uname"></result>
+            <result property="upwd" column="upwd"></result>
+            <result property="rolename" column="rolename"></result>
+        </association>
+    </resultMap>
+    <resultMap id="studentMap" type="student">
+        <id property="sid" column="sid"></id>
+        <result property="sname" column="sname"></result>
+        <result property="ssex" column="ssex"></result>
+        <result property="sage" column="sage"></result>
+        <result property="sphone" column="sphone"></result>
+        <result property="semail" column="semail"></result>
+        <result property="uid" column="uid"></result>
+        <result property="class_id" column="class_id"></result>
+        <association property="score" javaType="score" column="score_id">
+            <id property="uid" column="uid"></id>
+            <result property="uname" column="uname"></result>
+            <result property="upwd" column="upwd"></result>
+            <result property="rolename" column="rolename"></result>
+        </association>
+    </resultMap>
+
+    <select id="getBossInfo" parameterType="int" resultType="employee">
+        select * from employee where uid=#{uid}
+    </select>
+    <update id="updateUpwd" parameterType="int">
+        update user set upwd=#{upwd} where uid=#{uid}
+    </update>
+    <select id="getStudent_HolidayList" resultMap="holidayMap">
+select * from student_holiday inner join user on user.uid=studnet_holiday.uid and hid in
+<foreach collection="list" item="i" separator="," open="(" close=")">
+    #{i}
+</foreach>
+    </select>
+    <select id="getEmployee_HolidayList" resultMap="HolidayMap">
+        select * from employee_holiday inner join user on user.uid=employee_holiday.uid and hid in
+        <foreach collection="list" item="i" separator="," open="(" close=")">
+            #{i}
+        </foreach>
+    </select>
+    <update id="updateStudent_holiday">
+        update student_holiday set boss =#{arg1} where hid=#{arg0}
+    </update>
+    <update id="updateEmployee_holiday">
+        update employee_holiday set boss =#{arg1} where hid =#{arg0}
+    </update>
+
+</mapper>
