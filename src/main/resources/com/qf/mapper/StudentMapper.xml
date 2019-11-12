@@ -3,6 +3,19 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qf.mapper.StudentMapper">
+
+
+
+    <select id="getSidByUid" parameterType="int" resultType="int">
+        select sid from student where uid = #{uid}
+    </select>
+    <delete id="deleteStudent" parameterType="int">
+        delete from student where uid=#{uid}
+    </delete>
+
+
+
+
 <select id="getStudnetInfo" parameterType="int" resultType="student">
     select * from student inner join user on user.uid=studnet.uid inner join classes on classes.class_id = student.class_id and sid=#{sid}
 </select>
