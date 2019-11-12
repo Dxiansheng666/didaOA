@@ -2,7 +2,7 @@ package com.qf.pojo;
 
 public class Employee_Holiday {
     private int hid;
-    private int eid;
+    private int uid;
     private String start_date;
     private String end_date;
     private String reason;
@@ -25,12 +25,12 @@ public class Employee_Holiday {
         this.hid = hid;
     }
 
-    public int getEid() {
-        return eid;
+    public int getUid() {
+        return uid;
     }
 
-    public void setEid(int eid) {
-        this.eid = eid;
+    public void setUid(int uid) {
+        this.uid = uid;
     }
 
     public String getStart_date() {
@@ -69,7 +69,7 @@ public class Employee_Holiday {
     public String toString() {
         return "Employee_Holiday{" +
                 "hid=" + hid +
-                ", eid=" + eid +
+                ", uid=" + uid +
                 ", start_date='" + start_date + '\'' +
                 ", end_date='" + end_date + '\'' +
                 ", reason='" + reason + '\'' +
@@ -78,7 +78,7 @@ public class Employee_Holiday {
     }
 
     public Employee_Holiday(int eid, String start_date, String end_date, String reason, int boss) {
-        this.eid = eid;
+        this.uid = eid;
         this.start_date = start_date;
         this.end_date = end_date;
         this.reason = reason;

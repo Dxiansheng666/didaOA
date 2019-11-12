@@ -65,13 +65,18 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
+    public WeekReport getWeekReport(int wid) {
+        return teacherMapper.getWeekReport(wid);
+    }
+
+    @Override
     public int updateWeekReport(WeekReport weekReport) {
         return teacherMapper.updateWeekReport(weekReport);
     }
 
     @Override
-    public List<Student_Holiday> getStudent_HolidayList(String uname) {
-        List<Task> list = taskService.createTaskQuery().taskAssignee(uname).list();
+    public List<Student_Holiday> getStudent_HolidayList(String ename) {
+        List<Task> list = taskService.createTaskQuery().taskAssignee(ename).list();
         List<String> bussinessKeys = new ArrayList<>();
         for (Task task:list) {
             ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId(task.getProcessInstanceId()).singleResult();
@@ -82,8 +87,8 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public int updateStudent_Holiday(int hid, int teacher_state,String uname) {
-        Task task = taskService.createTaskQuery().processInstanceBusinessKey(hid+"").taskAssignee(uname).singleResult();
+    public int updateStudent_Holiday(int hid, int teacher_state,String ename) {
+        Task task = taskService.createTaskQuery().processInstanceBusinessKey(hid+"").taskAssignee(ename).singleResult();
         taskService.complete(task.getId());
         return teacherMapper.updateStudent_Holiday(hid,teacher_state);
     }
@@ -99,26 +104,45 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public List<Student> getStudentList() {
-        return teacherMapper.getStudentList();
+    public List<Student> getStudentList(Employee employee) {
+        Classes classes = teacherMapper.getClasses(employee.getEname());
+
+        return teacherMapper.getStudentList(classes.getClass_id());
     }
 
     @Override
-    public int addEmployeeHoliday(Employee_Holiday employee_holiday,int uid) {
-        //获取自己的名字
-        Employee employee2 = teacherMapper.getTeacherByUid(uid);
+    public int addEmployeeHoliday(Employee_Holiday employee_holiday) {
         //获取校长的名字
-        User user = teacherMapper.getUidByRoleName();
-        Employee employee = teacherMapper.getTeacherByUid(user.getUid());
+//        User user = teacherMapper.getUidByRoleName();
+//        Employee employee = teacherMapper.getTeacherByUid(user.getUid());
         teacherMapper.addEmployeeHoliday(employee_holiday);
         Map<String,Object> map = new HashMap<>();
-        map.put("teacher",employee2.getEname());
-        map.put("bname",employee.getEname());
+        map.put("teacher",employee_holiday.getEmployee().getEname());
+        map.put("bname","王");
         runtimeService.startProcessInstanceByKey("TeacherHoliday",employee_holiday.getHid()+"",map);
 
-        Task task = taskService.createTaskQuery().taskAssignee(employee2.getEname()).singleResult();
+        Task task = taskService.createTaskQuery().taskAssignee(employee_holiday.getEmployee().getEname()).singleResult();
         taskService.complete(task.getId());
 
         return employee_holiday.getHid();
+    }
+    //查询每个阶段学生的成绩
+//    @Override
+//    public List<Score> getScoreBySid(int stage,String ename) {
+//        Classes classes = teacherMapper.getClasses(ename);
+//        List<Student> studentList = teacherMapper.getStudentList(classes.getClass_id());
+//        List<String> sids = new ArrayList<>();
+//        for (Student student:studentList) {
+//            sids.add(student.getSid());
+//        }
+//        return teacherMapper.getScoreBySid(sids,stage);
+//    }
+    public int getAvgScore(int stage,String ename){
+        Classes classes = teacherMapper.getClasses(ename);
+         return teacherMapper.getAvgScore(classes.getClass_id(),stage);
+    }
+    //查询单个学生各阶段分数走势图
+    public int getScore(int sid,int stage){
+        return teacherMapper.getScore(sid,stage);
     }
 }
