@@ -118,7 +118,8 @@ public class TeacherController {
     @RequestMapping("")
     public String addEmployeeHoliday(Employee_Holiday employee_holiday,HttpSession session){
         User user = (User) session.getAttribute("user");
-        employee_holiday.setUser(user);
+        Employee employee = teacherService.getTeacherByUid(user.getUid());
+        employee_holiday.setEmployee(employee);
         int i = teacherService.addEmployeeHoliday(employee_holiday);
         if (i>0){
             return "";

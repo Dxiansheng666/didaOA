@@ -112,18 +112,16 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public int addEmployeeHoliday(Employee_Holiday employee_holiday) {
-        //获取自己的名字
-        Employee employee2 = teacherMapper.getTeacherByUid(employee_holiday.getUser().getUid());
         //获取校长的名字
-        User user = teacherMapper.getUidByRoleName();
-        Employee employee = teacherMapper.getTeacherByUid(user.getUid());
+//        User user = teacherMapper.getUidByRoleName();
+//        Employee employee = teacherMapper.getTeacherByUid(user.getUid());
         teacherMapper.addEmployeeHoliday(employee_holiday);
         Map<String,Object> map = new HashMap<>();
-        map.put("teacher",employee2.getEname());
-        map.put("bname",employee.getEname());
+        map.put("teacher",employee_holiday.getEmployee().getEname());
+        map.put("bname","王");
         runtimeService.startProcessInstanceByKey("TeacherHoliday",employee_holiday.getHid()+"",map);
 
-        Task task = taskService.createTaskQuery().taskAssignee(employee2.getEname()).singleResult();
+        Task task = taskService.createTaskQuery().taskAssignee(employee_holiday.getEmployee().getEname()).singleResult();
         taskService.complete(task.getId());
 
         return employee_holiday.getHid();
