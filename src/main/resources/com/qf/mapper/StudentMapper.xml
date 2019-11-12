@@ -21,6 +21,7 @@
     <select id="getWeekReport" parameterType="int" resultType="weekReport">
         select * from weekreport where sid =#{sid}
     </select>
+
     <select id="getWeekReportScore" resultType="java.lang.String" parameterType="int">
         select score from weekreport where sid=#{sid}
     </select>
