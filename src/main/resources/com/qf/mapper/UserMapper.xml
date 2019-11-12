@@ -16,7 +16,7 @@
     <update id="updateUpwdByUid">
         update user set upwd=#{arg0} where uid=#{arg1}
     </update>
-    <insert id="addUser" parameterType="java.lang.String">
+    <insert id="addUser" parameterType="java.lang.String" useGeneratedKeys="true" keyProperty="uid">
         insert into user(uname,upwd,rolename) values (#{arg0},#{arg1},#{arg2})
     </insert>
     <delete id="deleteUser" parameterType="int">
@@ -32,10 +32,10 @@
                 uid=#{uid}
             </if>
             <if test="uname!=null">
-                uname like #{uname}
+               and uname like #{uname}
             </if>
             <if test="rolename!=null">
-                rolename=#{rolename}
+               and rolename=#{rolename}
             </if>
         </where>
     </select>
@@ -44,5 +44,12 @@
     </select>
     <select id="getUidByPinyin" parameterType="java.lang.String" resultType="int">
         select uid from user where uname=#{uname}
+    </select>
+
+    <update id="updateUserByDeleteRole" parameterType="java.lang.String">
+        update user set rolename='待分配' where rolename=#{rolename}
+    </update>
+    <select id="getTea" resultType="java.lang.String">
+        select ename from employee inner join user on employee.uid = user.uid and rolename=#{rolename}
     </select>
 </mapper>
