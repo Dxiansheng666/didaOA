@@ -1,5 +1,8 @@
 package com.qf.mapper;
 import com.qf.pojo.Employee;
+
+import java.util.List;
+
 /**
  * @author FJM
  * @create 2019/11/11
@@ -13,5 +16,13 @@ public interface EmployeeMapper {
      */
     public Employee getHeadMasterByUid(int uid);
 
+    //查看员工列表
+    public List<Employee> getEmployList();
+    //增加员工
+    public int addEmployee(Employee employee);
+    //修改员工信息
+    public int updateEmployee(Employee employee);
+    //查询某个员工的具体信息
+    public Employee getEmployeeByUid(int uid);
 
 }
