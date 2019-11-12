@@ -14,6 +14,6 @@ public interface WeekReportMapper {
     //通过sid删除周报
     public int deleteWeekReportBySid(int sid);
     //获取班级周报
-    List<WeekReport> getWeekReportList(List<Student> studentList);
+    List<WeekReport> getWeekReportList(List<Student> list);
 
 }
