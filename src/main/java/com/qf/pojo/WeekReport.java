@@ -8,6 +8,15 @@ public class WeekReport {
     private String score;
     private int sid;
     private int state;
+    private Student student;
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
 
     public int getWid() {
         return wid;
