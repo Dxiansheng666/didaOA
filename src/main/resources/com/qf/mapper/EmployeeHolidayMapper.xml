@@ -6,4 +6,7 @@
     <delete id="deleteEmployeeHolidayByUid">
         delete from employee_holiday where uid=#{uid}
     </delete>
+    <insert id="addHoliday" parameterType="employee_Holiday" useGeneratedKeys="true" keyProperty="hid">
+        insert into employee_holiday(uid,start_date,end_date,reason) values (#{employee.uid},#{start_date},#{end_date},#{reason})
+    </insert>
 </mapper>

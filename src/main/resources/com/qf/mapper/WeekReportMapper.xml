@@ -16,7 +16,8 @@
     <delete id="deleteWeekReportBySid" parameterType="int">
         delete from weekreport where sid = #{sid}
     </delete>
-    <select id="getWeekReportListBySid" parameterType="int" resultMap="weekReportMap">
-        select * from weekreport where sid=#{sid}
+    <select id="getWeekReportListByUid" parameterType="int" resultMap="weekReportMap">
+        select * from weekreport,employee,classes,student
+        where employee.ename=classes.class_headteacher and classes.class_id=student.class_id and student.sid=weekreport.sid and employee.uid=#{uid}
     </select>
 </mapper>

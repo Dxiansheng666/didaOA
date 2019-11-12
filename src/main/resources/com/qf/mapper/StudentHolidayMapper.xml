@@ -3,6 +3,20 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qf.mapper.StudentHolidayMapper">
+    <resultMap id="studentHolidayMap" type="student_Holiday">
+        <id column="hid" property="hid"></id>
+        <result property="uid" column="uid"></result>
+        <result property="start_date" column="start_date"></result>
+        <result property="end_date" column="end_date"></result>
+        <result column="reason" property="reason"></result>
+        <result property="teacher_state" column="teacher_state"></result>
+        <result column="headmaster" property="headmaster"></result>
+        <result property="boss" column="boss"></result>
+        <association property="student" column="uid" javaType="student">
+            <id column="sid" property="sid"></id>
+            <result property="sname" column="sname"></result>
+        </association>
+    </resultMap>
     <delete id="deleteStudentHolidayByUid" parameterType="int">
         delete from student_holiday where uid = #{uid}
     </delete>
@@ -10,4 +24,20 @@
     <update id="updateStudentHoliday">
         update student_holiday set headmaster=#{arg1} where hid=#{arg0}
     </update>
+
+
+    <select id="getApproveHolidayList" resultMap="holidayMap">
+        select * from student_holiday inner join student on student.uid=student_holiday.uid
+        <choose>
+            <when test="list != null and list.size > 0">
+                and hid in
+                <foreach collection="list" item="i" separator="," open="(" close=")">
+                    #{i}
+                </foreach>
+            </when>
+            <otherwise>
+                and hid=0
+            </otherwise>
+        </choose>
+    </select>
 </mapper>
