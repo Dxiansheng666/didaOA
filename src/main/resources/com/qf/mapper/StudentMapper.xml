@@ -29,4 +29,9 @@
     <select id="getRoleNameList" resultType="user">
         select rolename from user where uid =#{uid}
     </select>
+
+    <insert id="addStudent" parameterType="student">
+        insert into student(sname,ssex,sage,sphone,semail,uid,class_id)
+        values (#{sname},#(ssex),#{sage},#{sphone},#{semail},#{user.uid},#{class.class_id})
+    </insert>
 </mapper>
