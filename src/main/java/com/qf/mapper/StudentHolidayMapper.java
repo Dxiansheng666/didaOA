@@ -11,4 +11,7 @@ public interface StudentHolidayMapper {
 
     //班主任修改学生请假记录
     public int updateStudentHoliday(int uid, int state);
+
+    //根据班主任姓名查询请假信息
+
 }
