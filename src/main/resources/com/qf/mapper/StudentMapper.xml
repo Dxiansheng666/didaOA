@@ -3,7 +3,16 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qf.mapper.StudentMapper">
-
+<resultMap id="studentMap" type="student">
+    <id property="sid" column="sid"></id>
+    <result property="sname" column="sname"></result>
+    <result property="ssex" column="ssex"></result>
+    <result property="sage" column="sage"></result>
+    <result property="sphone" column="sphone"></result>
+    <result property="semail" column="semail"></result>
+    <association property="classes" column="class_id" javaType="classes" select="com.qf.mapper.StudentMapper.getClassBySid">
+    </association>
+</resultMap>
 
 
     <select id="getSidByUid" parameterType="int" resultType="int">
@@ -47,4 +56,7 @@
         insert into student(sname,ssex,sage,sphone,semail,uid,class_id)
         values (#{sname},#(ssex),#{sage},#{sphone},#{semail},#{user.uid},#{class.class_id})
     </insert>
+    <select id="getClassBySid" resultMap="classMap">
+        select * from student inner join classes on student.class_id=classes.class_id and sid=#{sid}
+    </select>
 </mapper>
