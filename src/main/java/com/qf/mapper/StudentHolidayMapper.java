@@ -1,5 +1,9 @@
 package com.qf.mapper;
 
+import com.qf.pojo.Student_Holiday;
+
+import java.util.List;
+
 /**
  * @author FJM
  * @create 2019/11/11
@@ -12,6 +16,6 @@ public interface StudentHolidayMapper {
     //班主任修改学生请假记录
     public int updateStudentHoliday(int uid, int state);
 
-    //根据班主任姓名查询请假信息
-
+    //根据查询待审批请假信息
+    List<Student_Holiday> getApproveHolidayList(List<String> list);
 }
