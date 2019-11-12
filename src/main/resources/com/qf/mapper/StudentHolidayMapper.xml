@@ -6,4 +6,8 @@
     <delete id="deleteStudentHolidayByUid" parameterType="uid">
         delete from student_holiday where uid = #{uid}
     </delete>
+
+    <update id="updateStudentHoliday">
+        update student_holiday set headmaster=#{arg1} where hid=#{arg0}
+    </update>
 </mapper>
