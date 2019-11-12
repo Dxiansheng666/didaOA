@@ -19,4 +19,12 @@ public interface UserService {
     public int updatePasswordByAdmin(int uid);
     //搜索用户(名字用的是模糊查询，其他精确查询)
     public List<User> getLikeUser(int uid, String uname, String rolename);
+
+    //通过uid得到角色
+    public String getRolenameByUid(int uid);
+    //通过拼音名得到对应的uid
+    public int getUidByPinyin(String pinyin);
+
+    //分配班级时进行分配老师和班主任需要查询
+    public List<String> getTea(String rolename);
 }
