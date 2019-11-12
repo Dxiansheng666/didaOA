@@ -10,6 +10,7 @@ import org.activiti.engine.task.TaskQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -62,8 +63,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public int updateUpwd(User user) {
-        return studentMapper.updateUpwd(user);
+    public int updateUpwd(int sid) {
+        return studentMapper.updateUpwd(sid);
     }
 
     @Override
@@ -81,10 +82,18 @@ public class StudentServiceImpl implements StudentService {
         return studentMapper.getWeekReportList(sid);
     }
 
+
+
     @Override
-    public int addHoliday(Student_Holiday student_holiday) {
+    public int addHoliday(Student_Holiday student_holiday, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        int sid = studentMapper.getSidByUid(user.getUid());
         studentMapper.addHoliday(student_holiday);
+        List<Classes> classesList = studentMapper.getClassBySid(sid);
         List<User> userList = studentMapper.getRoleNameList();
+        for (User user1:userList){
+            System.out.println(user1);
+        }
 
         /**
          * 启动流程
@@ -95,22 +104,19 @@ public class StudentServiceImpl implements StudentService {
          * 第三个map表示流程变量
          */
         Map<String,Object> map = new HashMap<String,Object>();
-        map.put("stuName",student_holiday.getUser().getUname());
-        for (User u:userList) {
-            if (u.getRolename().equals("teacher")) {
-                map.put("teacherName", "u.getRolename()");
-            }else if (u.getRolename().equals("headmaster")){
-                map.put("headmasterName","u.getRolename()");
-            }else if (u.getRolename().equals("boss")){
-                map.put("bossName","u.getRolename()");
-            }
+        map.put("stuName",student_holiday.getStudent().getSname());
+        for (Classes c:classesList) {
+            map.put("teacherName",c.getClass_teacher());
+            map.put("headmasterName",c.getClass_headteacher());
+            map.put("bossName","王");
+
         }
         int days = getDays(student_holiday.getStart_date(),student_holiday.getEnd_date());
         map.put("days",days);
         //发起流程实例
         runtimeService.startProcessInstanceByKey("student_holiday",student_holiday.getHid()+"",map);
         //完成任务
-         Task task= taskService.createTaskQuery().taskAssignee(student_holiday.getUser().getUname()).singleResult();
+         Task task= taskService.createTaskQuery().taskAssignee(student_holiday.getStudent().getSname()).singleResult();
          taskService.complete(task.getId());
         return student_holiday.getHid();
     }
@@ -135,8 +141,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public String getTeacherName(Student student) {
-        return studentMapper.getTeacherName(student);
+    public List<Classes> getClassBySid(int sid) {
+        return studentMapper.getClassBySid(sid);
     }
 
     @Override
@@ -146,6 +152,13 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<User> getRoleNameList() {
-        return studentMapper.getRoleNameList();
+        return null;
     }
+
+    @Override
+    public int getSidByUid(int uid) {
+        return studentMapper.getSidByUid(uid);
+    }
+
+
 }
