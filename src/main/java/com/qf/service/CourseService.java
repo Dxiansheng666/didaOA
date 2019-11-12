@@ -1,4 +1,4 @@
-package com.qf.mapper;
+package com.qf.service;
 
 import com.qf.pojo.Course;
 
@@ -7,9 +7,9 @@ import java.util.List;
 /**
  * @author FJM
  * @create 2019/11/11
- * @Time 15:46
+ * @Time 16:24
  */
-public interface CourseMapper {
+public interface CourseService {
     //增加课程
     public int addCourse(String course_name);
     //减少

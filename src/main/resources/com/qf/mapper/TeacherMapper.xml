@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.mapper.TeacherMapper">
+<select id="getT getStudent_HolidayListacherByUid" parameterType="int" resultType="employee">
+    select * from employee where uid=#{uid}
+</select>
+    <update id="updateUpwdByUname" parameterType="user">
+        update user set upwd=#{upwd} where uname=#{uname}
+    </update>
+    <select id="getWeekReportList" resultType="weekReport">
+        select * from weekreport
+    </select>
+    <update id="updateWeekReport" parameterType="weekReport">
+        update weekreport set score=#{score},state=#{state} where wid=#{wid}
+    </update>
+
+<resultMap id="student_HolidayListMap" type="student_HolidayList">
+    <id property="hid" column="hid"></id>
+    <result property="start_date" column="start_date"></result>
+    <result property="end_date" column="end_date"></result>
+    <result property="reason" column="reason"></result>
+    <association property="user" javaType="user" column="uid">
+        <id property="uid" column="uid"></id>
+        <result property="uname" column="uname"></result>
+        <result property="upwd" column="upwd"></result>
+    </association>
+
+
+</resultMap>
+    <select id="getStudent_HolidayList" resultMap="student_HolidayListMap">
+        select * from student_holiday inner join user on student_holiday.uid=user.uid
+        where hid in
+        <foreach collection="list" item="i" separator="," open="(" close=")">
+            #{i}
+        </foreach>
+    </select>
+    <update id="updateStudent_Holiday" >
+        update student_holiday set teacher_state=#{arg1} where hid=#{hid}
+    </update>
+    <resultMap id="scoreMap" type="score">
+        <id property="score_id" column="score_id"></id>
+        <result property="score" column="score"></result>
+        <result property="stage" column="stage"></result>
+        <association property="student" javaType="student" column="sid">
+            <id property="sid" column="sid"></id>
+            <result property="sname" column="sname"></result>
+        </association>
+        <association property="course" javaType="course" column="course_id">
+            <id property="course_id" column="course_id"></id>
+            <result property="course_name" column="course_name"></result>
+        </association>
+    </resultMap>
+    <select id="getScoreList" resultMap="scoreMap">
+        select * from score inner join student on score.sid=student.sid inner join course on score.course_id=course.course_id
+    </select>
+
+    <insert id="addScore" parameterType="score">
+        insert into score(sid,course_id,score,stage) values (#{sid},#{course_id},#{score},#{stage})
+    </insert>
+<resultMap id="studentMap" type="student">
+    <id property="sid" column="sid"></id>
+    <result property="sname" column="sname"></result>
+    <result property="ssex" column="ssex"></result>
+    <result property="sage" column="sage"></result>
+    <result property="sphone" column="sphone"></result>
+    <result property="semail" column="semail"></result>
+    <association property="classes" javaType="classes" column="class_id">
+        <id property="class_id" column="class_id"></id>
+        <result property="class_name" column="class_name"></result>
+    </association>
+</resultMap>
+
+    <select id="getStudentList" resultMap="studentMap">
+        select * from student inner join classes on student.class_id = classes.class_id
+    </select>
+
+    <select id="getUidByRoleName" resultType="user">
+        select * from user where rolename='校长'
+    </select>
+    <insert id="addEmployeeHoliday" parameterType="employeeHoliday">
+        insert into employee_holiday(uid,start_date,end_date,reason,boss) values (#{uid},#{start_date},#{end_date},#{reason},#{boss})
+    </insert>
+</mapper>

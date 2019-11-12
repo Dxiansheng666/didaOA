@@ -16,4 +16,30 @@
     <update id="updateUpwdByUid">
         update user set upwd=#{arg0} where uid=#{arg1}
     </update>
+    <insert id="addUser" parameterType="java.lang.String">
+        insert into user(uname,upwd,rolename) values (#{arg0},#{arg1},#{arg2})
+    </insert>
+    <delete id="deleteUser" parameterType="int">
+        delete from user where uid = #{uid}
+    </delete>
+    <update id="updatePassword">
+        update user set upwd=#{arg1} where uid=#{arg0}
+    </update>
+    <select id="getLikeUser" resultType="user">
+        select * from user
+        <where>
+            <if test="uid !=0">
+                uid=#{uid}
+            </if>
+            <if test="uname!=null">
+                uname like #{uname}
+            </if>
+            <if test="rolename!=null">
+                rolename=#{rolename}
+            </if>
+        </where>
+    </select>
+    <select id="getRolenameByUid" parameterType="int" resultType="java.lang.String">
+        select rolename from user where uid=#{uid}
+    </select>
 </mapper>

@@ -3,6 +3,7 @@ package com.qf.controller;
 import com.qf.pojo.User;
 import com.qf.service.UserService;
 import com.qf.util.MD5Utils;
+import com.qf.util.Pinyinutils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.mgt.SecurityManager;
@@ -52,5 +53,25 @@ public class UserController {
         return "index";
     }
 
+    /**
+     * 添加学生
+     */
+    @RequestMapping("addStudent")
+    public String addStudent(String uname){
+        String pinyin = Pinyinutils.getPingYin(uname);
+        String upwd = MD5Utils.md5("123456");
+        userService.addUser(pinyin,upwd,"学生");
+        return "index";
+    }
+    /**
+     * 添加其他角色
+     */
+    @RequestMapping("addUser")
+    public String addUser(String uname,String rolename){
+        String pinyin = Pinyinutils.getPingYin(uname);
+        String upwd = MD5Utils.md5("123456");
+        userService.addUser(uname,upwd,rolename);
+        return "index";
+    }
 
 }

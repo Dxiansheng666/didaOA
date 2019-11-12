@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 @MapperScan(value = "com.qf.mapper")
-public class App 
+public class App
 {
     public static void main( String[] args )
     {
