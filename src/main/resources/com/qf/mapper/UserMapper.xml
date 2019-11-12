@@ -42,4 +42,7 @@
     <select id="getRolenameByUid" parameterType="int" resultType="java.lang.String">
         select rolename from user where uid=#{uid}
     </select>
+    <select id="getUidByPinyin" parameterType="java.lang.String" resultType="int">
+        select uid from user where uname=#{uname}
+    </select>
 </mapper>

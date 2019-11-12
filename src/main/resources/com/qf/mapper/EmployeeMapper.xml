@@ -9,4 +9,18 @@
     <delete id="deleteEmployeeByUid" parameterType="int">
         delete from employee where uid=#{uid}
     </delete>
+    <select id="getEmployList" resultType="employee">
+        select * from employee
+    </select>
+    <insert id="addEmployee" parameterType="employee">
+        insert into employee(ename,esex,eage,ephone,eemail,job,uid) values (#{ename},#{esex},#{eage},#{ephone},
+        #{eemail},#{job},#{uid})
+    </insert>
+    <select id="getEmployeeByUid" parameterType="int" resultType="employee">
+        select * from employee where uid = #{uid}
+    </select>
+    <update id="updateEmployee" parameterType="employee">
+        update employee set eid=#{eid},ename=#{ename},esex=#{esex},eage=#{eage},ephone=#{ephone},eemail=#{eemail},
+        job=#{job} where uid = #{uid}
+    </update>
 </mapper>
