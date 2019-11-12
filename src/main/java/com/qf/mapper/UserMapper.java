@@ -1,5 +1,7 @@
 package com.qf.mapper;
 
+import com.qf.pojo.Employee;
+import com.qf.pojo.Score;
 import com.qf.pojo.User;
 
 import java.util.List;
@@ -30,11 +32,12 @@ public interface UserMapper {
     public List<User> getLikeUser(int uid,String uname,String rolename);
     //通过uid得到角色
     public String getRolenameByUid(int uid);
-
-
-
-
     //通过拼音名得到对应的uid
     public int getUidByPinyin(String pinyin);
 
+
+    //单独对角色进行删除时，对被删除角色用户改为待分配
+    public int updateUserByDeleteRole(String rolename);
+    //分配班级时进行分配老师和班主任需要查询
+    public List<String> getTea(String rolename);
 }
