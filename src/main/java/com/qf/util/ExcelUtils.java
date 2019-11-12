@@ -60,10 +60,10 @@ public class ExcelUtils {
 				student.setSname(hr.getCell(1).getStringCellValue());
 				student.getUser().setUid((int)hr.getCell(2).getNumericCellValue());
 				student.setSsex(hr.getCell(3).getStringCellValue());
-				student.setSphone(new Double(hr.getCell(4).getNumericCellValue()).intValue()+"");
+				student.setSphone((int)hr.getCell(4).getNumericCellValue());
 				student.setSemail(hr.getCell(5).getStringCellValue());
 				student.setSage(hr.getCell(6).getStringCellValue());
-				student.getClasses().setClass_id((int)hr.getCell(2).getNumericCellValue());
+				student.getClasses().setClass_id((int)hr.getCell(7).getNumericCellValue());
 				list.add(student);
 			}
 			wb.close();
