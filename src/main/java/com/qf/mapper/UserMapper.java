@@ -31,4 +31,10 @@ public interface UserMapper {
     //通过uid得到角色
     public String getRolenameByUid(int uid);
 
+
+
+
+    //通过拼音名得到对应的uid
+    public int getUidByPinyin(String pinyin);
+
 }
