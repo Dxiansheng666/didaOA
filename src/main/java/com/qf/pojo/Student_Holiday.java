@@ -9,7 +9,7 @@ public class Student_Holiday {
     private int teacher_state;
     private int headmaster;
     private int boss;
-    private User user;//假条申请人
+    private Student student;//假条申请人
 
     public int getHid() {
         return hid;
@@ -75,15 +75,15 @@ public class Student_Holiday {
         this.boss = boss;
     }
 
-    public User getUser() {
-        return user;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
-    public Student_Holiday(int hid, int uid, String start_date, String end_date, String reason, int teacher_state, int headmaster, int boss, User user) {
+    public Student_Holiday(int hid, int uid, String start_date, String end_date, String reason, int teacher_state, int headmaster, int boss, Student student) {
         this.hid = hid;
         this.uid = uid;
         this.start_date = start_date;
@@ -92,7 +92,7 @@ public class Student_Holiday {
         this.teacher_state = teacher_state;
         this.headmaster = headmaster;
         this.boss = boss;
-        this.user = user;
+        this.student = student;
     }
 
     public Student_Holiday() {
@@ -109,7 +109,7 @@ public class Student_Holiday {
                 ", teacher_state=" + teacher_state +
                 ", headmaster=" + headmaster +
                 ", boss=" + boss +
-                ", user=" + user +
+                ", student=" + student +
                 '}';
     }
 }
