@@ -12,6 +12,9 @@
     <select id="getWeekReportList" resultType="weekReport">
         select * from weekreport
     </select>
+    <select id="getWeekReport" resultType="weekReport">
+        select * from weekreport where wid=#{wid}
+    </select>
     <update id="updateWeekReport" parameterType="weekReport">
         update weekreport set score=#{score},state=#{state} where wid=#{wid}
     </update>
@@ -59,21 +62,37 @@
     <insert id="addScore" parameterType="score">
         insert into score(sid,course_id,score,stage) values (#{sid},#{course_id},#{score},#{stage})
     </insert>
-<resultMap id="studentMap" type="student">
-    <id property="sid" column="sid"></id>
-    <result property="sname" column="sname"></result>
-    <result property="ssex" column="ssex"></result>
-    <result property="sage" column="sage"></result>
-    <result property="sphone" column="sphone"></result>
-    <result property="semail" column="semail"></result>
-    <association property="classes" javaType="classes" column="class_id">
-        <id property="class_id" column="class_id"></id>
-        <result property="class_name" column="class_name"></result>
-    </association>
-</resultMap>
+<!--<resultMap id="studentMap" type="student">-->
+<!--    <id property="sid" column="sid"></id>-->
+<!--    <result property="sname" column="sname"></result>-->
+<!--    <result property="ssex" column="ssex"></result>-->
+<!--    <result property="sage" column="sage"></result>-->
+<!--    <result property="sphone" column="sphone"></result>-->
+<!--    <result property="semail" column="semail"></result>-->
+<!--    <association property="classes" javaType="classes" column="class_id">-->
+<!--        <id property="class_id" column="class_id"></id>-->
+<!--        <result property="class_name" column="class_name"></result>-->
+<!--    </association>-->
+<!--</resultMap>-->
 
-    <select id="getStudentList" resultMap="studentMap">
-        select * from student inner join classes on student.class_id = classes.class_id
+    <select id="getStudentList" resultType="student">
+        select * from student where class_id=#{class_id}
+    </select>
+    <select id="getClasses" resultType="classes">
+    select * from classes where class_teacher=#{class_teacher}
+</select>
+<!--    <select id="getScoreBySid" >-->
+<!--        select * from score where sid in-->
+<!--        <foreach collection="list" item="i" separator="," open="(" close=")">-->
+<!--            #{i}-->
+<!--        </foreach>-->
+<!--         and stage=#{stage}-->
+<!--    </select>-->
+    <select id="getAvgScore" resultType="int">
+        select avg(score) from score where class_id=#{class_id} and stage=#{stage}
+    </select>
+    <select id="getScore" resultType="int">
+        select score from score where sid=#{sid} and stage=#{stage}
     </select>
 
     <select id="getUidByRoleName" resultType="user">
