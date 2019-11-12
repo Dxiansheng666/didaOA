@@ -39,4 +39,7 @@ public interface StudentMapper {
     //查找角色集合
     public List<User> getRoleNameList();
 
+    //增加学生
+    public int addStudent(Student student);
+
 }
