@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface BossService {
     //查看个人资料
+
     public Employee getBossInfo(int uid);
     //修改密码
     public int updateUpwd(int uid);
