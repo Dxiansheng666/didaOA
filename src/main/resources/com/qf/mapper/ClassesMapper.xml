@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.mapper.ClassesMapper">
+    <insert id="addClasses" parameterType="classes">
+        insert into classes(class_name,class_course,class_teacher,class_headteacher,peopleNum) values (
+        #{class_name},#{class_course},#{class_teacher},#{class_headteacher},#{peopleNum})
+    </insert>
+    <delete id="deleteClasses" parameterType="int">
+        delete from classes where class_id =#{class_id}
+    </delete>
+    <select id="getClassesById" parameterType="int" resultType="classes">
+        select * from classes where class_id =#{class_id}
+    </select>
+    <update id="updateClasses" parameterType="classes">
+        update classes set class_name=#{class_name},class_course =#{class_course},class_teacher=#{class_teacher},
+        class_headteacher=#{class_headteacher},peopleNum=#{peopleNum} where class_id = #{class_id}
+    </update>
+    <select id="classesList" resultType="classes">
+        select * from classes
+    </select>
+</mapper>
