@@ -1,5 +1,6 @@
 package com.qf.mapper;
 import com.qf.pojo.Employee;
+import com.qf.pojo.Score;
 
 import java.util.List;
 
@@ -24,5 +25,7 @@ public interface EmployeeMapper {
     public int updateEmployee(Employee employee);
     //查询某个员工的具体信息
     public Employee getEmployeeByUid(int uid);
+    //搜索员工，用姓名
+    public Employee getEmpByEname(String ename);
 
 }
