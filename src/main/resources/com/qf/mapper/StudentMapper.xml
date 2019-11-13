@@ -10,16 +10,9 @@
     <result property="sage" column="sage"></result>
     <result property="sphone" column="sphone"></result>
     <result property="semail" column="semail"></result>
-    <collection property="classes" javaType="java.util.ArrayList" ofType="classes" resultMap="classesMap"></collection>
+    <association property="classes" column="class_id" javaType="classes" select="com.qf.mapper.StudentMapper.getClassBySid"></association>
 </resultMap>
-<resultMap id="classesMap" type="classes">
-    <id property="class_id" column="class_id"></id>
-    <result property="class_name" column="class_name"></result>
-    <result property="class_course" column="class_course"></result>
-    <result property="class_teacher" column="class_teacher"></result>
-    <result property="class_headteacher" column="class_headteacher"></result>
-    <result property="peopleNum" column="peopleNum"></result>
-</resultMap>
+
 
     <select id="getSidByUid" parameterType="int" resultType="int">
         select sid from student where uid = #{uid}
