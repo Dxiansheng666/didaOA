@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <html>
   <head>
     <meta charset="utf-8"/>
@@ -124,24 +125,46 @@
           </div>
           <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
           <ul class="list-unstyled">
-                    <li class="active"><a href="index.html"> <i class="icon-home"></i>Home </a></li>
-                    <li><a href="person"> <i class="icon-padnote"></i>个人资料 </a></li>
-                    <li><a href="tables.html"> <i class="icon-grid"></i>信息管理 </a></li>
-                    <li><a href="charts.html"> <i class="fa fa-bar-chart"></i>成绩分析 </a></li>
-                    <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>周报管理 </a>
-                      <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
-                        <li><a href="#">新增周报</a></li>
-                        <li><a href="#">查看周报</a></li>
-                        <li><a href="#">删除周报</a></li>
-                      </ul>
-                    </li>
-                    <li><a href="login.html"> <i class="icon-interface-windows"></i>Login page </a></li>
-          </ul><span class="heading">Extras</span>
-          <ul class="list-unstyled">
-            <li> <a href="#"> <i class="icon-flask"></i>Demo </a></li>
-            <li> <a href="#"> <i class="icon-screen"></i>Demo </a></li>
-            <li> <a href="#"> <i class="icon-mail"></i>Demo </a></li>
-            <li> <a href="#"> <i class="icon-picture"></i>Demo </a></li>
+            <li><a href="index.html"> <i class="icon-home"></i>Home </a></li>
+            <li shiro:hasRole="班主任" class="active"><a href="person"> <i class="icon-padnote"></i>个人信息 </a></li>
+            <li shiro:hasRole="学生" class="active"><a href="getStudnetInfo"> <i class="icon-padnote"></i>个人信息 </a></li>
+            <li shiro:hasRole="讲师" class="active"><a href="teacher"> <i class="icon-padnote"></i>个人信息 </a></li>
+            <li shiro:hasRole="校长" class="active"><a href="getBossInfo"> <i class="icon-padnote"></i>个人信息 </a></li>
+            <li shiro:hasAnyRoles="班主任,讲师,超级管理员"><a href="#exampledropdownDropdown1"aria-expanded="false" data-toggle="collapse"><i class="icon-grid"></i>信息管理 </a>
+              <ul id="exampledropdownDropdown1" class="collapse list-unstyled ">
+                <li shiro:hasRole="班主任"><a href="getStudentList">学生信息管理</a></li>
+                <li shiro:hasRole="讲师"><a href="getStudent">学生信息管理</a></li>
+                <li shiro:hasRole="超级管理员"><a href="employee">员工信息管理</a></li>
+                <li shiro:hasRole="超级管理员"><a href="course">课程信息管理</a></li>
+                <li shiro:hasRole="超级管理员"><a href="user">用户信息管理</a></li>
+                <li shiro:hasRole="超级管理员"><a href="classes">班级信息管理</a></li>
+              </ul>
+            </li>
+            <li shiro:hasAnyRoles="校长,班主任,讲师"><a href="#exampledropdownDropdown2" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-bar-chart"></i>成绩管理 </a>
+              <ul id="exampledropdownDropdown2" class="collapse list-unstyled ">
+                <li><a href="score">成绩分析</a></li>
+                <li shiro:hasRole="讲师"><a href="addScore">成绩录入</a></li>
+              </ul>
+            </li>
+            <li shiro:hasAnyRoles="学生,班主任,讲师"><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>周报管理 </a>
+              <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
+                <li shiro:hasRole="学生"><a href="addWeekReport">新增周报</a></li>
+                <li shiro:hasRole="学生"><a href="getWeekReportInfo">查看周报</a></li>
+                <li shiro:hasRole="讲师"><a href="getWeekReport">查看周报</a></li>
+                <li shiro:hasRole="班主任"><a href="weekreport">查看周报</a></li>
+                <li shiro:hasRole="学生"><a href="deleteWeekReport">删除周报</a></li>
+              </ul>
+            </li>
+            <li shiro:hasAnyRoles="学生,班主任,讲师,校长"><a href="#exampledropdownDropdown3" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>请假管理 </a>
+              <ul id="exampledropdownDropdown3" class="collapse list-unstyled ">
+                <li shiro:hasRole="学生"><a href="addHoliday">发起请假</a></li>
+                <li shiro:hasRole="班主任"><a href="addEmployeeHoliday">发起请假</a></li>
+                <li shiro:hasRole="讲师"><a href="add">发起请假</a></li>
+                <li shiro:hasRole="班主任"><a href="updateStudentHoliday">请假审批</a></li>
+                <li shiro:hasRole="讲师"><a href="updateHoliday">请假审批</a></li>
+                <li shiro:hasRole="校长"><a href="updateholiday">请假审批</a></li>
+              </ul>
+            </li>
           </ul>
         </nav>
         <div class="content-inner">
