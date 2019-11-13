@@ -120,11 +120,9 @@
           <div class="sidebar-header d-flex align-items-center">
             <div class="avatar"><img src="img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
             <div class="title">
-              <h1 shiro:hasRole="班主任" class="h4"><span  th:text="${#httpSession.getAttribute('user').uname}"></span></h1>
-              <p shiro:hasRole="班主任"><span th:text="${#httpSession.getAttribute('user').rolename}"></span></p>
+              <h1  class="h4"><span  th:text="${#httpSession.getAttribute('user').uname}"></span></h1>
+              <p ><span th:text="${#httpSession.getAttribute('user').rolename}"></span></p>
 
-              <h1 shiro:hasRole="讲师" class="h4"><span  th:text="${#httpSession.getAttribute('user').uname}"></span></h1>
-              <p shiro:hasRole="讲师"><span th:text="${#httpSession.getAttribute('user').rolename}"></span></p>
             </div>
           </div>
           <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
@@ -218,6 +216,9 @@
                         </div>
                       </form>
 
+
+                    </div>
+                    <div class="card-body">
                       <form shiro:hasRole="讲师" class="form-inline" action="UpdatePwd" method="post">
                         <div class="form-group">
                           <label for="inlineFormInput1" class="sr-only">用户名</label>
