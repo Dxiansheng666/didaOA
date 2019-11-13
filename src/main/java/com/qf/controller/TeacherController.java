@@ -111,7 +111,7 @@ public class TeacherController {
         return "";
     }
 //  讲师发起请假
-    @RequestMapping("add")
+    @RequestMapping("add2")
     public String add2(){
         return "111111";
     }
