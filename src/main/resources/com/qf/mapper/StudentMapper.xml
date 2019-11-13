@@ -10,9 +10,9 @@
     <result property="sage" column="sage"></result>
     <result property="sphone" column="sphone"></result>
     <result property="semail" column="semail"></result>
-    <collection property="classList" javaType="java.util.ArrayList" ofType="class" resultMap="classMap"></collection>
+    <collection property="classes" javaType="java.util.ArrayList" ofType="classes" resultMap="classesMap"></collection>
 </resultMap>
-<resultMap id="classMap" type="class">
+<resultMap id="classesMap" type="classes">
     <id property="class_id" column="class_id"></id>
     <result property="class_name" column="class_name"></result>
     <result property="class_course" column="class_course"></result>
