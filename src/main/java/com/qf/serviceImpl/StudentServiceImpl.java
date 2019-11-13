@@ -89,7 +89,7 @@ public class StudentServiceImpl implements StudentService {
         User user = (User) session.getAttribute("user");
         int sid = studentMapper.getSidByUid(user.getUid());
         studentMapper.addHoliday(student_holiday);
-        List<Classes> classesList = studentMapper.getClassBySid(sid);
+        Classes classes = studentMapper.getClassBySid(sid);
         List<User> userList = studentMapper.getRoleNameList();
         for (User user1:userList){
             System.out.println(user1);
@@ -105,12 +105,11 @@ public class StudentServiceImpl implements StudentService {
          */
         Map<String,Object> map = new HashMap<String,Object>();
         map.put("stuName",student_holiday.getStudent().getSname());
-        for (Classes c:classesList) {
-            map.put("teacherName",c.getClass_teacher());
-            map.put("headmasterName",c.getClass_headteacher());
+            map.put("teacherName",classes.getClass_teacher());
+            map.put("headmasterName",classes.getClass_headteacher());
             map.put("bossName","王");
 
-        }
+
         int days = getDays(student_holiday.getStart_date(),student_holiday.getEnd_date());
         map.put("days",days);
         //发起流程实例
@@ -141,7 +140,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Classes> getClassBySid(int sid) {
+    public Classes getClassBySid(int sid) {
         return studentMapper.getClassBySid(sid);
     }
 
