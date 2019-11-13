@@ -36,7 +36,7 @@ public class Student {
         this.sage = sage;
     }
 
-    public String getSid() {
+    public int getSid() {
         return sid;
     }
 
