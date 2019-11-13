@@ -23,48 +23,48 @@ public class TeacherController {
         this.teacherService = teacherService;
     }
     //获取 当前对象
-    @RequestMapping("")
+    @RequestMapping("teacher")
     public String getTeacher(HttpServletRequest request,HttpSession session){
         User user = (User) session.getAttribute("user");
         Employee employee = teacherService.getTeacherByUid(user.getUid());
         request.setAttribute("employee",employee);
-        return "";
+        return "forms";
     }
     //修改密码
-    @RequestMapping("")
+    @RequestMapping("1")
     public String updateUpwd(User user){
         int i = teacherService.updateUpwdByUname(user);
         if (i>0){
-            return "";
+            return "2";
         }
-        return "";
+        return "3";
     }
     //获取周报集合
-    @RequestMapping("")
+    @RequestMapping("getWeekReport")
     public String getWeekReportList(HttpServletRequest request){
         List<WeekReport> weekReportList = teacherService.getWeekReportList();
         request.setAttribute("weekReportList",weekReportList);
 
-        return "";
+        return "4";
     }
     //获取周报
-    @RequestMapping("")
+    @RequestMapping("5")
     public String getWeekReport(int wid,HttpServletRequest request){
         WeekReport weekReport = teacherService.getWeekReport(wid);
         request.setAttribute("weekReport",weekReport);
-        return "";
+        return "6";
     }
     //周报打分，修改周报状态
-    @RequestMapping("")
+    @RequestMapping("7")
     public String updateWeekReport(WeekReport weekReport){
         int i = teacherService.updateWeekReport(weekReport);
         if (i>0){
-            return "";
+            return "8";
         }
         return "redirect: ?wid="+weekReport.getWid();
     }
     //获取待审核假条
-    @RequestMapping("")
+    @RequestMapping("updateHoliday")
     public String getStudent_HolidayList(HttpServletRequest request,HttpSession session){
         User user = (User) session.getAttribute("user");
         Employee employee = teacherService.getTeacherByUid(user.getUid());
@@ -73,7 +73,7 @@ public class TeacherController {
         return "";
     }
     //修改假条状态
-    @RequestMapping("")
+    @RequestMapping("9")
     public String updateStudent_Holiday(int hid,HttpSession session){
         User user = (User) session.getAttribute("user");
         Employee employee = teacherService.getTeacherByUid(user.getUid());
@@ -81,7 +81,7 @@ public class TeacherController {
         return "";
     }
     //获取分数列表
-    @RequestMapping("")
+    @RequestMapping("11")
     public String getScoreList(HttpServletRequest request){
         List<Score> scoreList = teacherService.getScoreList();
         request.setAttribute("scoreList",scoreList);
@@ -89,20 +89,20 @@ public class TeacherController {
         return "";
     }
     //录入学生分数
-    @RequestMapping("add1")
+    @RequestMapping("addScore")
     public String add1(){
-        return "";
+        return "111";
     }
-    @RequestMapping("")
+    @RequestMapping("1111")
     public String addScore(Score score){
         int i = teacherService.addScore(score);
         if (i>0){
-            return "";
+            return "11111";
         }
-        return "";
+        return "1111";
     }
     //查看本班学生信息
-    @RequestMapping("")
+    @RequestMapping("getStudent")
     public String getStudentList(int uid,HttpServletRequest request){
         Employee employee = teacherService.getTeacherByUid(uid);
         List<Student> studentList = teacherService.getStudentList(employee);
@@ -111,20 +111,20 @@ public class TeacherController {
         return "";
     }
 //  讲师发起请假
-    @RequestMapping("add2")
+    @RequestMapping("add")
     public String add2(){
-        return "";
+        return "111111";
     }
-    @RequestMapping("")
+    @RequestMapping("12")
     public String addEmployeeHoliday(Employee_Holiday employee_holiday,HttpSession session){
         User user = (User) session.getAttribute("user");
         Employee employee = teacherService.getTeacherByUid(user.getUid());
         employee_holiday.setEmployee(employee);
         int i = teacherService.addEmployeeHoliday(employee_holiday);
         if (i>0){
-            return "";
+            return "13";
         }
-        return "";
+        return "14";
     }
 //成绩分析
 //    @RequestMapping("")
@@ -142,7 +142,7 @@ public class TeacherController {
 //        return "";
 //    }
 
-    @RequestMapping("")
+    @RequestMapping("score")
     public String getScoreBySid(int uid,HttpServletRequest request){
         Employee employee = teacherService.getTeacherByUid(uid);
         int score1 = teacherService.getAvgScore(1,employee.getEname());
@@ -153,9 +153,9 @@ public class TeacherController {
         request.setAttribute("score2",score2);
         request.setAttribute("score3",score3);
         request.setAttribute("score4",score4);
-        return "";
+        return "15";
     }
-    @RequestMapping("")
+    @RequestMapping("16")
     public  String getScore(int sid,HttpServletRequest request){
         int score1 = teacherService.getScore(sid,1);
         int score2 = teacherService.getScore(sid,2);
@@ -165,6 +165,6 @@ public class TeacherController {
         request.setAttribute("score2",score2);
         request.setAttribute("score3",score3);
         request.setAttribute("score4",score4);
-        return "";
+        return "17";
     }
 }
