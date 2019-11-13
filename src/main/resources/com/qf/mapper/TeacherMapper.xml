@@ -6,8 +6,8 @@
 <select id="getTeacherByUid" parameterType="int" resultType="employee">
     select * from employee where uid=#{uid}
 </select>
-    <update id="updateUpwdByUname" parameterType="user">
-        update user set upwd=#{upwd} where uname=#{uname}
+    <update id="updateUpwdByUname">
+        update user set upwd=#{arg1} where uname=#{arg0}
     </update>
     <select id="getWeekReportList" resultType="weekReport">
         select * from weekreport
@@ -15,8 +15,8 @@
     <select id="getWeekReport" resultType="weekReport">
         select * from weekreport where wid=#{wid}
     </select>
-    <update id="updateWeekReport" parameterType="weekReport">
-        update weekreport set score=#{score},state=#{state} where wid=#{wid}
+    <update id="updateWeekReport">
+        update weekreport set score=#{arg0},state=#{arg1} where wid=#{arg2}
     </update>
 
 <resultMap id="student_HolidayMap" type="student_Holiday">
