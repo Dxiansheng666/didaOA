@@ -35,7 +35,7 @@ public class ActivitiConfiguration {
         spec.setDataSource(dataSource);
         spec.setTransactionManager(platformTransactionManager);
         spec.setDatabaseSchemaUpdate("true");
-        Resource[] resources = null;
+        Resource[] resources = new Resource[0];
         //启动自动部署流程
         try {
             resources =new PathMatchingResourcePatternResolver().getResources("classpath*:bpmn/*.bpmn");
