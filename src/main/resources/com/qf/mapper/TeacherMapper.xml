@@ -102,7 +102,7 @@
 <!--        select avg(score) from score where class_id=#{arg0} and stage=#{arg1}-->
 <!--    </select>-->
     <select id="getScore" parameterType="int" resultType="int">
-        select score from score where sid=#{sid}
+        select score from score where sid=#{sid} order by stage
     </select>
 
     <select id="getUidByRoleName" resultType="user" >

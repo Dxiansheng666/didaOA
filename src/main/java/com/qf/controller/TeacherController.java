@@ -152,23 +152,10 @@ public class TeacherController {
         return "14";
     }
 //成绩分析
-//    @RequestMapping("")
-//    public String getScoreBySid(int uid,HttpServletRequest request) {
-//        Employee employee = teacherService.getTeacherByUid(uid);
-//        List<Score> scores1 = teacherService.getScoreBySid(1, employee.getEname());
-//        List<Score> scores2 = teacherService.getScoreBySid(2, employee.getEname());
-//        List<Score> scores3 = teacherService.getScoreBySid(3, employee.getEname());
-//        List<Score> scores4 = teacherService.getScoreBySid(4, employee.getEname());
-//        request.setAttribute("scores1",scores1);
-//        request.setAttribute("scores2",scores2);
-//        request.setAttribute("scores3",scores3);
-//        request.setAttribute("scores4",scores4);
-//
-//        return "";
-//    }
 
     @RequestMapping("score")
     public String op(){
+
         return "echarts";
     }
     @RequestMapping("score3")
@@ -184,22 +171,25 @@ public class TeacherController {
         list.add(Double.parseDouble(scoreList.get(2)));
         list.add(Double.parseDouble(scoreList.get(3)));
         map.put("scoreList",list);
-        for (Object s:scoreList
-             ) {
-            System.out.println(s);
-        }
        // map.put("scoreList",scoreList);
 
         return map;
     }
+    @RequestMapping("score2")
+    public String opc(int sid,Model model){
+        model.addAttribute("sid", sid);
+        return "echarts1";
+    }
     @RequestMapping("getScore")
-    public  String getScore(int sid, Model model){
+    @ResponseBody
+    public  Map<String,Object> getScore(int sid){
        List<Integer> scores = teacherService.getScore(sid);
         for (int score:scores
              ) {
             System.out.println(score);
         }
-        model.addAttribute("scores",scores);
-        return "echarts1";
+        Map<String,Object> map = new HashMap<>();
+        map.put("scores",scores);
+        return map;
     }
 }
