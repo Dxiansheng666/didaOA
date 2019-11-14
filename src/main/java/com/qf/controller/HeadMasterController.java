@@ -98,7 +98,7 @@ public class HeadMasterController {
         Employee master = headMasterService.getHeadMasterByUid(user.getUid());
         employeeHoliday.setEmployee(master);
         headMasterService.addHeadMasterHoliday(employeeHoliday);
-        return "addEmployeeHoliday";
+        return "redirect:addEmployeeHoliday";
     }
 
     /*

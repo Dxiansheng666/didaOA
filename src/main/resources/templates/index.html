@@ -69,6 +69,21 @@
         $("body").on("click","#weekreport",function(){
           $(".dv_content").attr("src","weekreport");//班主任查看周报
         });
+        $("body").on("click","#getEmployeeAll",function(){
+          $(".dv_content").attr("src","getEmployeeAll");//员工信息管理
+        });
+        $("body").on("click","#getCourseList",function(){
+          $(".dv_content").attr("src","getCourseList");//课程信息管理
+        });
+        $("body").on("click","#getUserList",function(){
+          $(".dv_content").attr("src","getUserList");//用户信息管理
+        });
+        $("body").on("click","#getClassesList",function(){
+          $(".dv_content").attr("src","getClassesList");//班级信息管理
+        });
+        $("body").on("click","#rolenameList",function(){
+          $(".dv_content").attr("src","rolenameList");//角色信息管理
+        });
       })
 
     </script>
@@ -179,19 +194,19 @@
           <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
           <ul class="list-unstyled">
             <li><a href="index.html"> <i class="icon-home"></i>Home </a></li>
-            <li shiro:hasRole="班主任" class="active"><a href="person"> <i class="icon-padnote"></i>个人信息 </a></li>
-            <li shiro:hasRole="学生" class="active"><a href="getStudnetInfo"> <i class="icon-padnote"></i>个人信息 </a></li>
-            <li shiro:hasRole="讲师" class="active"><a href="teacher"> <i class="icon-padnote"></i>个人信息 </a></li>
-            <li shiro:hasRole="校长" class="active"><a href="getBossInfo"> <i class="icon-padnote"></i>个人信息 </a></li>
+            <li shiro:hasRole="班主任" class="active"><a href="#" id="person"> <i class="icon-padnote"></i>个人信息 </a></li>
+            <li shiro:hasRole="学生" class="active"><a href="#" id="getStudnetInfo"> <i class="icon-padnote"></i>个人信息 </a></li>
+            <li shiro:hasRole="讲师" class="active"><a href="#" id="teacher"> <i class="icon-padnote"></i>个人信息 </a></li>
+            <li shiro:hasRole="校长" class="active"><a href="#" id="getBossInfo"> <i class="icon-padnote"></i>个人信息 </a></li>
             <li shiro:hasAnyRoles="班主任,讲师,超级管理员"><a href="#exampledropdownDropdown1"aria-expanded="false" data-toggle="collapse"><i class="icon-grid"></i>信息管理 </a>
               <ul id="exampledropdownDropdown1" class="collapse list-unstyled ">
                 <li shiro:hasRole="班主任"><a href="#" id="getStudentList">学生信息管理</a></li>
                 <li shiro:hasRole="讲师"><a href="#" id="getStudent">学生信息管理</a></li>
-                <li shiro:hasRole="超级管理员"><a href="getEmployeeAll">员工信息管理</a></li>
-                <li shiro:hasRole="超级管理员"><a href="getCourseList">课程信息管理</a></li>
-                <li shiro:hasRole="超级管理员"><a href="getUserList">用户信息管理</a></li>
-                <li shiro:hasRole="超级管理员"><a href="getClassesList">班级信息管理</a></li>
-                <li shiro:hasRole="超级管理员"><a href="rolenameList">角色信息管理</a></li>
+                <li shiro:hasRole="超级管理员"><a href="#" id="getEmployeeAll">员工信息管理</a></li>
+                <li shiro:hasRole="超级管理员"><a href="#" id="getCourseList">课程信息管理</a></li>
+                <li shiro:hasRole="超级管理员"><a href="#" id="getUserList">用户信息管理</a></li>
+                <li shiro:hasRole="超级管理员"><a href="#" id="getClassesList">班级信息管理</a></li>
+                <li shiro:hasRole="超级管理员"><a href="#" id="rolenameList">角色信息管理</a></li>
               </ul>
             </li>
             <li shiro:hasAnyRoles="校长,班主任,讲师"><a href="#exampledropdownDropdown2" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-bar-chart"></i>成绩管理 </a>
