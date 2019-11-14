@@ -39,4 +39,5 @@ public interface StudentMapper {
     //增加学生
     public int addStudent(Student student);
 
+    List<Student> getStudentListByClassId(int class_id);
 }

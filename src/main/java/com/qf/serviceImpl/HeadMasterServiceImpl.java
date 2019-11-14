@@ -51,7 +51,7 @@ public class HeadMasterServiceImpl implements HeadMasterService {
     //获取班级学生信息
     @Override
     public List<Student> getStudentListByClassId(int class_id) {
-        return null;
+        return studentMapper.getStudentListByClassId(class_id);
     }
     //班主任发起请假
     @Override
@@ -66,12 +66,12 @@ public class HeadMasterServiceImpl implements HeadMasterService {
          * 第3个map表示流程变量
          */
         Map<String,Object> map = new HashMap<String,Object>();
-        map.put("tname",employee_holiday.getEmployee().getEname());
+        map.put("teacher",employee_holiday.getEmployee().getEname());
         map.put("bname","王");
         int days = getDays(employee_holiday.getStart_date(),employee_holiday.getEnd_date());
         map.put("days",days);
         //发起流程实例
-        runtimeService.startProcessInstanceByKey("employee_holiday",employee_holiday.getHid()+"",map);
+        runtimeService.startProcessInstanceByKey("TeacherHoliday",employee_holiday.getHid()+"",map);
         //完成任务
         Task task = taskService.createTaskQuery().taskAssignee(employee_holiday.getEmployee().getEname()).singleResult();
         taskService.complete(task.getId());
@@ -108,6 +108,12 @@ public class HeadMasterServiceImpl implements HeadMasterService {
         List<Student_Holiday> approveHolidayList = studentHolidayMapper.getApproveHolidayList(bussinessKeys);
         return approveHolidayList;
     }
+
+    @Override
+    public List<Employee> getBossByRoleName(String boss) {
+        return employeeMapper.getBossByRoleName(boss);
+    }
+
     /**
      * 根据日期获取天数
      * @param startDate

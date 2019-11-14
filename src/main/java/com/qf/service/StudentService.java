@@ -28,4 +28,6 @@ public interface StudentService {
     public List<User> getRoleNameList();
     //通过uid查询sid
     public int getSidByUid(int uid);
+
+    int addStudent(Student student);
 }

@@ -6,7 +6,6 @@ import com.qf.service.StudentService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.task.Task;
-import org.activiti.engine.task.TaskQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -157,6 +156,11 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public int getSidByUid(int uid) {
         return studentMapper.getSidByUid(uid);
+    }
+
+    @Override
+    public int addStudent(Student student) {
+        return studentMapper.addStudent(student);
     }
 
 

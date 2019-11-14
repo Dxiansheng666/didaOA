@@ -1,7 +1,6 @@
 package com.qf.service;
 
 import com.qf.pojo.Classes;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -22,5 +21,6 @@ public interface ClassesService {
     public int updateClasses(Classes classes);
     //查询所有班级信息
     public List<Classes> classesList();
-
+    //根据ename查询下属班级
+    List<Classes> getClassesListByEname(String ename);
 }

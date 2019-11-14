@@ -36,7 +36,7 @@ public interface TeacherService {
 
 //    //查询每个阶段学生的成绩
 //    public List<Score> getScoreBySid(int stage,String ename);
-    public int getAvgScore(int stage,String ename);
+    public List<String>  getAvgScore(String ename);
     //查询单个学生各阶段分数走势图
-    public int getScore(int sid,int stage);
+    public List<Integer> getScore(int sid);
 }

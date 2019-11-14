@@ -66,10 +66,12 @@
     </select>
 
     <insert id="addStudent" parameterType="student">
-        insert into student(sname,ssex,sage,sphone,semail,uid,class_id)
-        values (#{sname},#(ssex),#{sage},#{sphone},#{semail},#{user.uid},#{class.class_id})
+        insert into student(sname,ssex,sage,sphone,semail,uid,class_id) values (#{sname},#{ssex},#{sage},#{sphone},#{semail},#{user.uid},#{classes.class_id})
     </insert>
     <select id="getClassesByUid" parameterType="int" resultMap="classesMap">
         select * from student inner join classes on student.class_id=classes.class_id and student.uid=#{uid}
+    </select>
+    <select id="getStudentListByClassId" resultMap="studentMap">
+        select * from student,classes where classes.class_id=student.class_id and student.class_id=#{class_id}
     </select>
 </mapper>

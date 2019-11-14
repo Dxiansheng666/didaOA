@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
+    <!-- Fontastic Custom icon font-->
+    <link rel="stylesheet" href="css/fontastic.css">
+    <!-- Google fonts - Poppins -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="css/custom.css">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="img/favicon.ico">
+    <!-- Tweaks for older IEs--><!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+  </head>
+  <body>
+    <div class="page">
+          <!-- Page Header-->
+          <header class="page-header">
+            <div class="container-fluid">
+              <h2 class="no-margin-bottom">请假审批</h2>
+            </div>
+          </header>
+          <!-- Breadcrumb-->
+          <div class="breadcrumb-holder container-fluid">
+            <ul class="breadcrumb">
+              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+              <li class="breadcrumb-item active">待审批信息            </li>
+            </ul>
+          </div>
+          <section class="tables">   
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-lg-12" align="center">
+                  <div class="card">
+                    <div class="card-close">
+                      <div class="dropdown">
+                        <button type="button" id="closeCard1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-ellipsis-v"></i></button>
+                        <div aria-labelledby="closeCard1" class="dropdown-menu dropdown-menu-right has-shadow"><a href="#" class="dropdown-item remove"> <i class="fa fa-times"></i>Close</a><a href="#" class="dropdown-item edit"> <i class="fa fa-gear"></i>Edit</a></div>
+                      </div>
+                    </div>
+                    <div class="card-header d-flex align-items-center">
+                      <h3 class="h4">请假信息列表</h3>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th>序号</th>
+                              <th>姓名</th>
+                              <th>开始时间</th>
+                              <th>结束时间</th>
+                              <th>请假原因</th>
+                              <th shiro:hasRole="讲师">讲师审批</th>
+                              <th shiro:hasRole="班主任">班主任审批</th>
+                              <th shiro:hasRole="校长">校长审批</th>
+                              <th>操作</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr th:each="h,var:${pageInfo.list}">
+                              <td th:text="${var.count}"></td>
+                              <td th:text="${h.getStudent().sname}"></td>
+                              <td th:text="${h.getStart_date()}"></td>
+                              <td th:text="${h.getEnd_date}"></td>
+                              <td th:text="${h.getReason()}"></td>
+                              <td shiro:hasRole="讲师" th:if="${h.getTeacher_state() == 1}">未审批</td>
+                              <td shiro:hasRole="讲师" th:if="${h.getTeacher_state() != 1}">已审批</td>
+                              <td shiro:hasRole="班主任" th:if="${h.getHeadmaster() ==1 }">未审批</td>
+                              <td shiro:hasRole="班主任" th:if="${h.getHeadmaster() !=1 }">已审批</td>
+                              <td shiro:hasRole="校长" th:if="${h.getBoss() ==1 }">未审批</td>
+                              <td shiro:hasRole="校长" th:if="${h.getBoss() !=1 }">已审批</td>
+                              <td>
+                                <a th:href="updateStudentHoliday1(hid=${h.hid})" shiro:hasRole="讲师" th:if="${h.getTeacher_state() == 1}">审批</a>
+                                <span shiro:hasRole="讲师" th:if="${h.getTeacher_state() != 1}">审批</span>
+                                <a shiro:hasRole="班主任" th:if="${h.getHeadmaster() ==1 }">审批</a>
+                                <span shiro:hasRole="班主任" th:if="${h.getHeadmaster() !=1 }">审批</span>
+                                <a shiro:hasRole="校长" th:if="${h.getBoss() ==1 }">审批</a>
+                                <span shiro:hasRole="校长" th:if="${h.getBoss() !=1 }">审批</span>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <div shiro:hasRole="班主任" align="center">
+                        <a th:href="@{updateStudentHoliday(pageNum=1)}" th:text="首页"></a>
+                        <span th:if="${!pageInfo.hasPreviousPage}">上一页</span>
+                        <a th:if="${pageInfo.hasPreviousPage}" th:href="@{updateStudentHoliday(pageNum=${pageInfo.prePage})}" th:text="上一页"></a>
+                        <!--<span th:each="i: ${pageInfo.navigatepageNums}">
+                            <a th:href="@{index(pageNum=${i})}" th:text="${i}"></a>
+                        </span>-->
+                        <a th:if="${pageInfo.hasNextPage}" th:href="@{updateStudentHoliday(pageNum=${pageInfo.nextPage})}" th:text="下一页"></a>
+                        <span th:if="${!pageInfo.hasNextPage}">下一页</span>
+                        <a th:href="@{updateStudentHoliday(pageNum=${pageInfo.lastPage})}" th:text="尾页"></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+    </div>
+    <!-- JavaScript files-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/popper.js/umd/popper.min.js"> </script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="vendor/jquery.cookie/jquery.cookie.js"> </script>
+    <script src="vendor/chart.js/Chart.min.js"></script>
+    <script src="vendor/jquery-validation/jquery.validate.min.js"></script>
+    <!-- Main File-->
+    <script src="js/front.js"></script>
+  </body>
+</html>
