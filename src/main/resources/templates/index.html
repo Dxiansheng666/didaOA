@@ -94,9 +94,14 @@
           $(".dv_content").attr("src","score");//成绩分析
         });
         $("body").on("click","#addWRP",function(){
-          $(".dv_content").attr("src","addrWRP");//新增周报
+          $(".dv_content").attr("src","addWRP");//新增周报
         });
-
+        $("body").on("click","#getWeekReportInfo",function(){
+          $(".dv_content").attr("src","getWeekReportInfo");//学生查看周报
+        });
+        $("body").on("click","#addHoliday",function(){
+          $(".dv_content").attr("src","addHoliday");//学生发起请假
+        });
       })
 
     </script>
@@ -231,15 +236,15 @@
             </li>
             <li shiro:hasAnyRoles="学生,班主任,讲师"><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>周报管理 </a>
               <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
-                <li shiro:hasRole="学生"><a href="addWRP">新增周报</a></li>
-                <li shiro:hasRole="学生"><a href="getWeekReportInfo">查看周报</a></li>
+                <li shiro:hasRole="学生"><a href="#" id="addWRP">新增周报</a></li>
+                <li shiro:hasRole="学生"><a href="#" id="getWeekReportInfo">查看周报</a></li>
                 <li shiro:hasRole="讲师"><a href="#" id="getWeekReport">查看周报</a></li>
                 <li shiro:hasRole="班主任"><a href="#" id="weekreport">查看周报</a></li>
               </ul>
             </li>
             <li shiro:hasAnyRoles="学生,班主任,讲师,校长"><a href="#exampledropdownDropdown3" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>请假管理 </a>
               <ul id="exampledropdownDropdown3" class="collapse list-unstyled ">
-                <li shiro:hasRole="学生"><a href="addHoliday" id="addHoliday">发起请假</a></li>
+                <li shiro:hasRole="学生"><a href="#" id="addHoliday">发起请假</a></li>
                 <li shiro:hasRole="班主任"><a href="#" id="addEmployeeHoliday">发起请假</a></li>
                 <li shiro:hasRole="讲师"><a href="#" id="add2">发起请假</a></li>
                 <li shiro:hasRole="班主任"><a href="#" id="updateStudentHoliday">请假审批</a></li>
