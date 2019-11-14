@@ -37,8 +37,8 @@ public interface TeacherMapper {
     //根据rolename获取校长的uid
     public User getUidByRoleName();
 //查询每个阶段学生的成绩
-//    public List<Score> getScoreBySid(List<String> list,int stage);
-    public int getAvgScore(int class_id,int stage);
+    public List<String>  getAvgScore(List<Integer> list);
+//    public int getAvgScore(int class_id,int stage);
     //查询单个学生各阶段分数走势图
-    public int getScore(int sid,int stage);
+    public List<Integer> getScore(int sid);
 }
