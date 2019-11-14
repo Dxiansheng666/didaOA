@@ -6,8 +6,8 @@
 <select id="getTeacherByUid" parameterType="int" resultType="employee">
     select * from employee where uid=#{uid}
 </select>
-    <update id="updateUpwdByUname" parameterType="user">
-        update user set upwd=#{upwd} where uname=#{uname}
+    <update id="updateUpwdByUname">
+        update user set upwd=#{arg1} where uname=#{arg0}
     </update>
     <select id="getWeekReportList" resultType="weekReport">
         select * from weekreport
@@ -15,8 +15,8 @@
     <select id="getWeekReport" resultType="weekReport">
         select * from weekreport where wid=#{wid}
     </select>
-    <update id="updateWeekReport" parameterType="weekReport">
-        update weekreport set score=#{score},state=#{state} where wid=#{wid}
+    <update id="updateWeekReport">
+        update weekreport set score=#{arg0},state=#{arg1} where wid=#{arg2}
     </update>
 
 <resultMap id="student_HolidayMap" type="student_Holiday">
@@ -81,21 +81,31 @@
     <select id="getClasses" resultType="classes">
     select * from classes where class_teacher=#{class_teacher}
 </select>
-<!--    <select id="getScoreBySid" >-->
-<!--        select * from score where sid in-->
-<!--        <foreach collection="list" item="i" separator="," open="(" close=")">-->
-<!--            #{i}-->
-<!--        </foreach>-->
-<!--         and stage=#{stage}-->
-<!--    </select>-->
-    <select id="getAvgScore" resultType="int">
-        select avg(score) from score where class_id=#{class_id} and stage=#{stage}
+<!--    <resultMap id="scoreMap1" type="score">-->
+<!--        <id property="score_id" column="score_id"></id>-->
+<!--        <result property="score" column="score"></result>-->
+<!--        <result property="stage" column="stage"></result>-->
+<!--        <association property="student" javaType="student" column="sid">-->
+<!--            <id property="sid" column="sid"></id>-->
+<!--            <result property="sname" column="sname"></result>-->
+<!--        </association>-->
+<!--    </resultMap>-->
+    <select id="getAvgScore" resultType="java.lang.String">
+        select avg(score) from score
+         where score.sid in
+        <foreach collection="list" item="i" separator="," open="(" close=")">
+            #{i}
+        </foreach>
+         group by stage
     </select>
-    <select id="getScore" resultType="int">
-        select score from score where sid=#{sid} and stage=#{stage}
+<!--    <select id="getAvgScore" >-->
+<!--        select avg(score) from score where class_id=#{arg0} and stage=#{arg1}-->
+<!--    </select>-->
+    <select id="getScore" parameterType="int" resultType="int">
+        select score from score where sid=#{sid}
     </select>
 
-    <select id="getUidByRoleName" resultType="user">
+    <select id="getUidByRoleName" resultType="user" >
         select * from user where rolename='校长'
     </select>
     <insert id="addEmployeeHoliday" parameterType="employee_Holiday">

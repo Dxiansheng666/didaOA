@@ -3,6 +3,7 @@ package com.qf.serviceImpl;
 import com.qf.mapper.TeacherMapper;
 import com.qf.pojo.*;
 import com.qf.service.TeacherService;
+import com.qf.util.MD5Utils;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.runtime.ProcessInstance;
@@ -56,7 +57,7 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public int updateUpwdByUname(User user) {
-        return teacherMapper.updateUpwdByUname(user);
+        return teacherMapper.updateUpwdByUname(user.getUname(), MD5Utils.md5(user.getUpwd()));
     }
 
     @Override
@@ -70,8 +71,8 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public int updateWeekReport(WeekReport weekReport) {
-        return teacherMapper.updateWeekReport(weekReport);
+    public int updateWeekReport(int score,int state,int wid) {
+        return teacherMapper.updateWeekReport(score,state,wid);
     }
 
     @Override
@@ -127,22 +128,28 @@ public class TeacherServiceImpl implements TeacherService {
         return employee_holiday.getHid();
     }
     //查询每个阶段学生的成绩
-//    @Override
-//    public List<Score> getScoreBySid(int stage,String ename) {
-//        Classes classes = teacherMapper.getClasses(ename);
-//        List<Student> studentList = teacherMapper.getStudentList(classes.getClass_id());
-//        List<String> sids = new ArrayList<>();
-//        for (Student student:studentList) {
-//            sids.add(student.getSid());
-//        }
-//        return teacherMapper.getScoreBySid(sids,stage);
-//    }
-    public int getAvgScore(int stage,String ename){
+    @Override
+    public List<String>  getAvgScore(String ename) {
         Classes classes = teacherMapper.getClasses(ename);
-         return teacherMapper.getAvgScore(classes.getClass_id(),stage);
+        List<Student> studentList = teacherMapper.getStudentList(classes.getClass_id());
+        List<Integer> sids = new ArrayList<>();
+
+        for (Student student:studentList) {
+            System.out.println(student);
+            sids.add(student.getSid());
+        }
+        for (int i:sids
+             ) {
+            System.out.println(i);
+        }
+        return teacherMapper.getAvgScore(sids);
     }
+//    public int getAvgScore(int stage,String ename){
+//        Classes classes = teacherMapper.getClasses(ename);
+//         return teacherMapper.getAvgScore(classes.getClass_id(),stage);
+//    }
     //查询单个学生各阶段分数走势图
-    public int getScore(int sid,int stage){
-        return teacherMapper.getScore(sid,stage);
+    public List<Integer> getScore(int sid){
+        return teacherMapper.getScore(sid);
     }
 }

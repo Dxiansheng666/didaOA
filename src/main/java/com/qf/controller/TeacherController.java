@@ -1,14 +1,28 @@
 package com.qf.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.qf.pojo.*;
 import com.qf.service.TeacherService;
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class TeacherController {
@@ -26,42 +40,48 @@ public class TeacherController {
     @RequestMapping("teacher")
     public String getTeacher(HttpServletRequest request,HttpSession session){
         User user = (User) session.getAttribute("user");
+        System.out.println(user);
         Employee employee = teacherService.getTeacherByUid(user.getUid());
         request.setAttribute("employee",employee);
         return "forms";
     }
     //修改密码
-    @RequestMapping("1")
+    @RequestMapping("UpdatePwd")
     public String updateUpwd(User user){
+
         int i = teacherService.updateUpwdByUname(user);
         if (i>0){
-            return "2";
+            return "index";
         }
-        return "3";
+        return "redirect:teacher";
     }
     //获取周报集合
     @RequestMapping("getWeekReport")
-    public String getWeekReportList(HttpServletRequest request){
+    public String getWeekReportList(@RequestParam(defaultValue = "1")int pageNum,HttpServletRequest request){
+        PageHelper.startPage(pageNum,5);
         List<WeekReport> weekReportList = teacherService.getWeekReportList();
-        request.setAttribute("weekReportList",weekReportList);
+        PageInfo<WeekReport> pageInfo = new PageInfo<>(weekReportList);
+        request.setAttribute("pageInfo",pageInfo);
 
-        return "4";
+        return "tables";
     }
     //获取周报
-    @RequestMapping("5")
+    @RequestMapping("addscore")
     public String getWeekReport(int wid,HttpServletRequest request){
+        System.out.println(wid);
         WeekReport weekReport = teacherService.getWeekReport(wid);
         request.setAttribute("weekReport",weekReport);
-        return "6";
+        return "addscore";
     }
     //周报打分，修改周报状态
-    @RequestMapping("7")
-    public String updateWeekReport(WeekReport weekReport){
-        int i = teacherService.updateWeekReport(weekReport);
+    @RequestMapping("updateweekreport")
+    public String updateWeekReport(int score,int wid){
+        System.out.println();
+        int i = teacherService.updateWeekReport(score,2,wid);
         if (i>0){
-            return "8";
+            return "redirect:getWeekReport";
         }
-        return "redirect: ?wid="+weekReport.getWid();
+        return "redirect:addscore?wid="+wid;
     }
     //获取待审核假条
     @RequestMapping("updateHoliday")
@@ -91,16 +111,21 @@ public class TeacherController {
     //录入学生分数
     @RequestMapping("addScore")
     public String add1(){
-        return "111";
+        return "insertscore";
     }
-    @RequestMapping("1111")
+    @RequestMapping("savescore")
     public String addScore(Score score){
+        System.out.println(score);
         int i = teacherService.addScore(score);
         if (i>0){
-            return "11111";
+            return "index";
         }
-        return "1111";
+        return "redirect:addScore";
     }
+//    @RequestMapping("score")
+//    public String det(){
+//        return "echarts";
+//    }
     //查看本班学生信息
     @RequestMapping("getStudent")
     public String getStudentList(int uid,HttpServletRequest request){
@@ -143,28 +168,38 @@ public class TeacherController {
 //    }
 
     @RequestMapping("score")
-    public String getScoreBySid(int uid,HttpServletRequest request){
-        Employee employee = teacherService.getTeacherByUid(uid);
-        int score1 = teacherService.getAvgScore(1,employee.getEname());
-        int score2 = teacherService.getAvgScore(2,employee.getEname());
-        int score3 = teacherService.getAvgScore(3,employee.getEname());
-        int score4 = teacherService.getAvgScore(4,employee.getEname());
-        request.setAttribute("score1",score1);
-        request.setAttribute("score2",score2);
-        request.setAttribute("score3",score3);
-        request.setAttribute("score4",score4);
-        return "15";
+    public String op(){
+        return "echarts";
     }
-    @RequestMapping("16")
-    public  String getScore(int sid,HttpServletRequest request){
-        int score1 = teacherService.getScore(sid,1);
-        int score2 = teacherService.getScore(sid,2);
-        int score3 = teacherService.getScore(sid,3);
-        int score4 = teacherService.getScore(sid,4);
-        request.setAttribute("score1",score1);
-        request.setAttribute("score2",score2);
-        request.setAttribute("score3",score3);
-        request.setAttribute("score4",score4);
-        return "17";
+    @RequestMapping("score3")
+    @ResponseBody
+    public  Map<String,Object> getScoreBySid(HttpSession session){
+        Map<String,Object> map = new HashMap<>();
+        User user = (User) session.getAttribute("user");
+        Employee employee = teacherService.getTeacherByUid(user.getUid());
+        List<String>  scoreList = teacherService.getAvgScore(employee.getEname());
+        List<Double> list = new ArrayList<>();
+        list.add(Double.parseDouble(scoreList.get(0)));
+        list.add(Double.parseDouble(scoreList.get(1)));
+        list.add(Double.parseDouble(scoreList.get(2)));
+        list.add(Double.parseDouble(scoreList.get(3)));
+        map.put("scoreList",list);
+        for (Object s:scoreList
+             ) {
+            System.out.println(s);
+        }
+       // map.put("scoreList",scoreList);
+
+        return map;
+    }
+    @RequestMapping("getScore")
+    public  String getScore(int sid, Model model){
+       List<Integer> scores = teacherService.getScore(sid);
+        for (int score:scores
+             ) {
+            System.out.println(score);
+        }
+        model.addAttribute("scores",scores);
+        return "echarts1";
     }
 }

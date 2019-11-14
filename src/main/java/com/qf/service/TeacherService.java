@@ -16,7 +16,7 @@ public interface TeacherService {
     //根据wid查询单个信息
     public  WeekReport getWeekReport(int wid);
     //周报打分，并修改周报状态
-    public int updateWeekReport(WeekReport weekReport);
+    public int updateWeekReport(int score,int state,int wid);
 
     //查询待审批列表
     public List<Student_Holiday> getStudent_HolidayList(String ename);
@@ -36,7 +36,7 @@ public interface TeacherService {
 
 //    //查询每个阶段学生的成绩
 //    public List<Score> getScoreBySid(int stage,String ename);
-    public int getAvgScore(int stage,String ename);
+    public List<String>  getAvgScore(String ename);
     //查询单个学生各阶段分数走势图
-    public int getScore(int sid,int stage);
+    public List<Integer> getScore(int sid);
 }

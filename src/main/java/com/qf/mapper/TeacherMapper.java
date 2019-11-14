@@ -9,14 +9,14 @@ public interface TeacherMapper {
     //个人资料管理
     public Employee getTeacherByUid(int uid);
     //修改密码
-    public int updateUpwdByUname(User user);
+    public int updateUpwdByUname(String uname,String upwd);
 
     //周报查看
     public List<WeekReport> getWeekReportList();
     //根据wid查询单个信息
     public  WeekReport getWeekReport(int wid);
     //周报打分，并修改周报状态
-    public int updateWeekReport(WeekReport weekReport);
+    public int updateWeekReport(int score,int state,int wid);
 
     //查询待审批列表
     public List<Student_Holiday> getStudent_HolidayList(List<String> list);
@@ -37,8 +37,8 @@ public interface TeacherMapper {
     //根据rolename获取校长的uid
     public User getUidByRoleName();
 //查询每个阶段学生的成绩
-//    public List<Score> getScoreBySid(List<String> list,int stage);
-    public int getAvgScore(int class_id,int stage);
+    public List<String>  getAvgScore(List<Integer> list);
+//    public int getAvgScore(int class_id,int stage);
     //查询单个学生各阶段分数走势图
-    public int getScore(int sid,int stage);
+    public List<Integer> getScore(int sid);
 }

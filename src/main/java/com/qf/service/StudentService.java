@@ -21,7 +21,7 @@ public interface StudentService {
     //发起请假
     public int addHoliday(Student_Holiday student_holiday, HttpSession session);
     //根据学生查找老师
-    public List<Classes> getClassBySid(int sid);
+    public Classes getClassBySid(int sid);
     //查询周报分数
     public List<WeekReport> getWeekReportScoreList(int sid);
     //查找角色集合
