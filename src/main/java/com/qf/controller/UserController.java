@@ -145,7 +145,7 @@ public class UserController {
     //查看全部角色
     @RequestMapping("rolenameList")
     public String getRoleList(Model model,@RequestParam(defaultValue = "1")int pageNum){
-        PageHelper.startPage(pageNum,8);
+        PageHelper.startPage(pageNum,10);
         List<Role> roleList = roleService.getRoleList();
         PageInfo<Role> pageInfo = new PageInfo<Role>(roleList);
         model.addAttribute("pageInfo",pageInfo);
@@ -216,7 +216,7 @@ public class UserController {
         if (sname==""){
             return "redirect:getUserList";
         }else {
-            PageHelper.startPage(pageNum, 8);
+            PageHelper.startPage(pageNum, 10);
             List<User> userList1 = userService.getLikeUser(sname);
             PageInfo<User> pageInfo = new PageInfo<User>(userList1);
             model.addAttribute("pageInfo", pageInfo);
@@ -227,7 +227,7 @@ public class UserController {
     //查询所有用户
     @RequestMapping("getUserList")
     public String getUserList(Model model,@RequestParam(defaultValue ="1")int pageNum){
-        PageHelper.startPage(pageNum,8);
+        PageHelper.startPage(pageNum,10);
         List<User> userList = userService.getUserList();
         PageInfo<User> pageInfo = new PageInfo<User>(userList);
         model.addAttribute("pageInfo",pageInfo);
@@ -339,7 +339,7 @@ public class UserController {
     //班级列表
     @RequestMapping("getClassesList")
     public String getClassesList(Model model,@RequestParam(defaultValue = "1")int pageNum){
-        PageHelper.startPage(pageNum,8);
+        PageHelper.startPage(pageNum,10);
         List<Classes> classesList = classesService.classesList();
         PageInfo<Classes> pageInfo = new PageInfo<Classes>(classesList);
         model.addAttribute("pageInfo",pageInfo);
