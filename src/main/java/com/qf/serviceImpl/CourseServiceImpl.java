@@ -1,5 +1,6 @@
 package com.qf.serviceImpl;
 
+import com.qf.mapper.CourseMapper;
 import com.qf.pojo.Course;
 import com.qf.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,29 +16,29 @@ import java.util.List;
 @Service
 public class CourseServiceImpl implements CourseService {
     @Autowired
-    private CourseService courseService;
+    private CourseMapper courseMapper;
     @Override
-    public int addCourse(String course_name) {
-        return courseService.addCourse(course_name);
+    public int addCourse(String course_name,String course_duration) {
+        return courseMapper.addCourse(course_name,course_duration);
     }
 
     @Override
     public int deleteCourse(int course_id) {
-        return courseService.deleteCourse(course_id);
+        return courseMapper.deleteCourse(course_id);
     }
 
     @Override
     public int updateCourse(Course course) {
-        return courseService.updateCourse(course);
+        return courseMapper.updateCourse(course);
     }
 
     @Override
     public List<Course> getCourseList() {
-        return courseService.getCourseList();
+        return courseMapper.getCourseList();
     }
 
     @Override
     public Course getCourseById(int course_id) {
-        return courseService.getCourseById(course_id);
+        return courseMapper.getCourseById(course_id);
     }
 }

@@ -6,4 +6,8 @@
     <delete id="deleteScoreBySid">
         delete from score where sid = #{sid}
     </delete>
+
+    <select id="getScoreListByUid" parameterType="int" resultType="score">
+        select * from score where sid=#{sid}
+    </select>
 </mapper>

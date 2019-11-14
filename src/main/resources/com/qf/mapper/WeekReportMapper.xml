@@ -32,4 +32,7 @@
             where classes.class_id=student.class_id and student.sid=weekreport.sid and classes.class_id=#{arg1}
         </if>
     </select>
+    <select id="getWeekReportListBySid" parameterType="int" resultType="weekReport">
+        select * from weekreport where sid=#{sid}
+    </select>
 </mapper>

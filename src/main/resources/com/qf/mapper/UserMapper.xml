@@ -26,18 +26,15 @@
         update user set upwd=#{arg1} where uid=#{arg0}
     </update>
     <select id="getLikeUser" resultType="user">
-        select * from user
-        <where>
-            <if test="uid !=0">
-                uid=#{uid}
-            </if>
+        select * from user where uname like #{sname}
+        <!--<where>
             <if test="uname!=null">
-               and uname like #{uname}
+               uname like #{arg0}
             </if>
             <if test="rolename!=null">
-               and rolename=#{rolename}
+               or rolename like #{sname}
             </if>
-        </where>
+        </where>-->
     </select>
     <select id="getRolenameByUid" parameterType="int" resultType="java.lang.String">
         select rolename from user where uid=#{uid}
@@ -51,5 +48,17 @@
     </update>
     <select id="getTea" resultType="java.lang.String">
         select ename from employee inner join user on employee.uid = user.uid and rolename=#{rolename}
+    </select>
+
+    <select id="getUserList" resultType="user">
+        select * from user
+    </select>
+
+    <update id="updateRoleByUid">
+        update user set rolename=#{arg1} where uid=#{arg0}
+    </update>
+
+    <select id="getUserByRolename" parameterType="java.lang.String" resultType="user">
+        select * from user where rolename=#{rolename}
     </select>
 </mapper>

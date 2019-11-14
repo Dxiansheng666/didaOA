@@ -18,4 +18,7 @@ public interface StudentHolidayMapper {
 
     //根据查询待审批请假信息
     List<Student_Holiday> getApproveHolidayList(List<String> list);
+
+    //删除学生之前查询是否有请假记录 有的话一起删除
+    public List<Student_Holiday> getStudentHolidayByUid(int uid);
 }
