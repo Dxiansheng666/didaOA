@@ -1,77 +1,51 @@
 package com.qf.util;
 
-import com.qf.pojo.Student;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-
-import java.io.InputStream;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
+import org.apache.poi.hssf.usermodel.*;
 
 public class ExcelUtils {
+	/**
+	 * 导出Excel
+	 * @param sheetName sheet名称
+	 * @param title 标题
+	 * @param values 内容
+	 * @param wb HSSFWorkbook对象
+	 * @return
+	 */
+	public static HSSFWorkbook getHSSFWorkbook(String sheetName, String []title, String [][]values, HSSFWorkbook wb){
 
-	//解析员工
-//	public static List<Staff> parseExcel(InputStream is) {
-//		List<Staff> list = new ArrayList<>();
-//		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-//		// 创建单元
-//		HSSFWorkbook wb;
-//		try {
-//			wb = new HSSFWorkbook(is);
-//			HSSFSheet sheet = wb.getSheetAt(0);
-//			int l = sheet.getLastRowNum();
-//			for (int i = 1; i <= l; i++) {
-//				HSSFRow hr = sheet.getRow(i);
-//				Staff staff=new Staff();
-//				staff.setNo(hr.getCell(0).getStringCellValue());
-//				staff.setName(hr.getCell(1).getStringCellValue());
-//				staff.setDid((int)hr.getCell(2).getNumericCellValue());
-//				staff.setSex(hr.getCell(3).getStringCellValue());
-//				staff.setPhone(new Double(hr.getCell(4).getNumericCellValue()).intValue()+"");
-//				staff.setEmail(hr.getCell(5).getStringCellValue());
-//				staff.setQq(new Double(hr.getCell(6).getNumericCellValue()).intValue()+"");
-//				staff.setCreatedate(sdf.parse(hr.getCell(7).getStringCellValue()));
-//				list.add(staff);
-//			}
-//			wb.close();
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		return list;
-//	}
-	
-	//解析学员
-	public static List<Student> parseExcelS(InputStream is) {
-		List<Student> list = new ArrayList<>();
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-		// 创建单元
-		HSSFWorkbook wb;
-		try {
-			wb = new HSSFWorkbook(is);
-			HSSFSheet sheet = wb.getSheetAt(0);
-			int l = sheet.getLastRowNum();
-			for (int i = 1; i <= l; i++) {
-				HSSFRow hr = sheet.getRow(i);
-				Student student=new Student();
-				student.setSid((int)hr.getCell(0).getNumericCellValue());
-				student.setSname(hr.getCell(1).getStringCellValue());
-				student.getUser().setUid((int)hr.getCell(2).getNumericCellValue());
-				student.setSsex(hr.getCell(3).getStringCellValue());
-				student.setSphone((int)hr.getCell(4).getNumericCellValue());
-				student.setSemail(hr.getCell(5).getStringCellValue());
-				student.setSage(hr.getCell(6).getStringCellValue());
-				student.getClasses().setClass_id((int)hr.getCell(7).getNumericCellValue());
-				list.add(student);
-			}
-			wb.close();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		// 第一步，创建一个HSSFWorkbook，对应一个Excel文件
+		if(wb == null){
+			wb = new HSSFWorkbook();
 		}
-		return list;
+
+		// 第二步，在workbook中添加一个sheet,对应Excel文件中的sheet
+		HSSFSheet sheet = wb.createSheet(sheetName);
+
+		// 第三步，在sheet中添加表头第0行,注意老版本poi对Excel的行数列数有限制
+		HSSFRow row = sheet.createRow(0);
+
+		// 第四步，创建单元格，并设置值表头 设置表头居中
+		HSSFCellStyle style = wb.createCellStyle();
+		style.setAlignment(HSSFCellStyle.ALIGN_CENTER); // 创建一个居中格式
+
+		//声明列对象
+		HSSFCell cell = null;
+
+		//创建标题
+		for(int i=0;i<title.length;i++){
+			cell = row.createCell(i);
+			cell.setCellValue(title[i]);
+			cell.setCellStyle(style);
+		}
+
+		//创建内容
+		for(int i=0;i<values.length;i++){
+			row = sheet.createRow(i + 1);
+			for(int j=0;j<values[i].length;j++){
+				//将内容按顺序赋给对应的列对象
+				row.createCell(j).setCellValue(values[i][j]);
+			}
+		}
+		return wb;
 	}
-	
 }

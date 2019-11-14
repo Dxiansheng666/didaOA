@@ -49,4 +49,9 @@ public interface HeadMasterService {
     获取待审批假条
      */
     List<Student_Holiday> getStudentHolidayByUid(int uid);
+
+    /*
+    获取校长集合
+     */
+    List<Employee> getBossByRoleName(String boss);
 }

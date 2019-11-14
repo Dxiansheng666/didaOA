@@ -20,4 +20,9 @@
     <select id="classesList" resultType="classes">
         select * from classes
     </select>
+
+
+    <select id="getClassesListByEname" parameterType="string" resultType="classes">
+        select * from classes where class_headteacher=#{ename}
+    </select>
 </mapper>

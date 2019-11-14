@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qf.mapper.EmployeeMapper">
-    <select id="getHeadMasterByUid" parameterType="int" resultType="Employee">
+    <select id="getHeadMasterByUid" parameterType="int" resultType="employee">
         select * from employee where uid=#{uid}
     </select>
     <delete id="deleteEmployeeByUid" parameterType="int">
@@ -25,5 +25,8 @@
     </update>
     <select id="getEmpByEname" parameterType="java.lang.String" resultType="employee">
         select * from employee where ename=#{ename}
+    </select>
+    <select id="getBossByRoleName" parameterType="string" resultType="employee">
+        select * from employee where job=#{boss}
     </select>
 </mapper>
