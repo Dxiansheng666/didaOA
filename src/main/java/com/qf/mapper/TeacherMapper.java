@@ -9,14 +9,14 @@ public interface TeacherMapper {
     //个人资料管理
     public Employee getTeacherByUid(int uid);
     //修改密码
-    public int updateUpwdByUname(User user);
+    public int updateUpwdByUname(String uname,String upwd);
 
     //周报查看
     public List<WeekReport> getWeekReportList();
     //根据wid查询单个信息
     public  WeekReport getWeekReport(int wid);
     //周报打分，并修改周报状态
-    public int updateWeekReport(WeekReport weekReport);
+    public int updateWeekReport(int score,int state,int wid);
 
     //查询待审批列表
     public List<Student_Holiday> getStudent_HolidayList(List<String> list);

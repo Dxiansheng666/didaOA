@@ -3,6 +3,14 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qf.mapper.StudentMapper">
+<!--    <resultMap id="classesMap" type="classes">-->
+<!--        <result property="class_id" column="class_id"></result>-->
+<!--        <result property="class_name" column="class_name"></result>-->
+<!--        <result property="class_course" column="class_course"></result>-->
+<!--        <result property="class_teacher" column="class_teacher"></result>-->
+<!--        <result property="class_headteacher" column="class_headteacher"></result>-->
+<!--        <association property="student" resultMap="studentMap"></association>-->
+<!--    </resultMap>-->
 <resultMap id="studentMap" type="student">
     <result property="sid" column="sid"></result>
     <result property="sname" column="sname"></result>
@@ -10,9 +18,15 @@
     <result property="sage" column="sage"></result>
     <result property="sphone" column="sphone"></result>
     <result property="semail" column="semail"></result>
-    <association property="classes" column="class_id" javaType="classes" select="com.qf.mapper.StudentMapper.getClassBySid"></association>
+    <association property="classes" column="class_id" resultMap="classesMap"></association>
 </resultMap>
-
+    <resultMap id="classesMap" type="classes">
+        <result property="class_id" column="class_id"></result>
+        <result property="class_name" column="class_name"></result>
+        <result property="class_course" column="class_course"></result>
+        <result property="class_teacher" column="class_teacher"></result>
+        <result property="class_headteacher" column="class_headteacher"></result>
+    </resultMap>
 
     <select id="getSidByUid" parameterType="int" resultType="int">
         select sid from student where uid = #{uid}
@@ -25,10 +39,10 @@
 
 
 <select id="getStudnetInfo" parameterType="int" resultType="student">
-    select * from student inner join user on user.uid=studnet.uid inner join classes on classes.class_id = student.class_id and sid=#{sid}
+    select * from student where uid=#{uid}
 </select>
     <update id="updateStudentInfo" parameterType="int">
-        update student set sname=#{sname},ssex=#{ssex},sage=#{sage},sphone=#{sphone},semail=#{semail} where sid=#{sid}
+        update student set sname=#{sname},ssex=#{ssex},sage=#{sage},sphone=#{sphone},semail=#{semail} where uid=#{uid}
     </update>
 <update id="updateUpwd" parameterType="int">
     update user set upwd=#{upwd} where uid=#{uid}
@@ -55,7 +69,7 @@
         insert into student(sname,ssex,sage,sphone,semail,uid,class_id)
         values (#{sname},#(ssex),#{sage},#{sphone},#{semail},#{user.uid},#{class.class_id})
     </insert>
-    <select id="getClassBySid" resultMap="studentMap">
-        select * from student inner join classes on student.class_id=classes.class_id and sid=#{sid}
+    <select id="getClassesByUid" parameterType="int" resultMap="classesMap">
+        select * from student inner join classes on student.class_id=classes.class_id and student.uid=#{uid}
     </select>
 </mapper>

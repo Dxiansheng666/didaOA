@@ -3,6 +3,7 @@ package com.qf.serviceImpl;
 import com.qf.mapper.TeacherMapper;
 import com.qf.pojo.*;
 import com.qf.service.TeacherService;
+import com.qf.util.MD5Utils;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.runtime.ProcessInstance;
@@ -56,7 +57,7 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public int updateUpwdByUname(User user) {
-        return teacherMapper.updateUpwdByUname(user);
+        return teacherMapper.updateUpwdByUname(user.getUname(), MD5Utils.md5(user.getUpwd()));
     }
 
     @Override
@@ -70,8 +71,8 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public int updateWeekReport(WeekReport weekReport) {
-        return teacherMapper.updateWeekReport(weekReport);
+    public int updateWeekReport(int score,int state,int wid) {
+        return teacherMapper.updateWeekReport(score,state,wid);
     }
 
     @Override

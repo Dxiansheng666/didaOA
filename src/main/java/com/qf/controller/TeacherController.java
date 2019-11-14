@@ -1,10 +1,13 @@
 package com.qf.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.qf.pojo.*;
 import com.qf.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -26,42 +29,48 @@ public class TeacherController {
     @RequestMapping("teacher")
     public String getTeacher(HttpServletRequest request,HttpSession session){
         User user = (User) session.getAttribute("user");
+        System.out.println(user);
         Employee employee = teacherService.getTeacherByUid(user.getUid());
         request.setAttribute("employee",employee);
         return "forms";
     }
     //修改密码
-    @RequestMapping("1")
+    @RequestMapping("UpdatePwd")
     public String updateUpwd(User user){
+
         int i = teacherService.updateUpwdByUname(user);
         if (i>0){
-            return "2";
+            return "index";
         }
-        return "3";
+        return "redirect:teacher";
     }
     //获取周报集合
     @RequestMapping("getWeekReport")
-    public String getWeekReportList(HttpServletRequest request){
+    public String getWeekReportList(@RequestParam(defaultValue = "1")int pageNum,HttpServletRequest request){
+        PageHelper.startPage(pageNum,5);
         List<WeekReport> weekReportList = teacherService.getWeekReportList();
-        request.setAttribute("weekReportList",weekReportList);
+        PageInfo<WeekReport> pageInfo = new PageInfo<>(weekReportList);
+        request.setAttribute("pageInfo",pageInfo);
 
-        return "4";
+        return "tables";
     }
     //获取周报
-    @RequestMapping("5")
+    @RequestMapping("addscore")
     public String getWeekReport(int wid,HttpServletRequest request){
+        System.out.println(wid);
         WeekReport weekReport = teacherService.getWeekReport(wid);
         request.setAttribute("weekReport",weekReport);
-        return "6";
+        return "addscore";
     }
     //周报打分，修改周报状态
-    @RequestMapping("7")
-    public String updateWeekReport(WeekReport weekReport){
-        int i = teacherService.updateWeekReport(weekReport);
+    @RequestMapping("updateweekreport")
+    public String updateWeekReport(int score,int wid){
+        System.out.println();
+        int i = teacherService.updateWeekReport(score,2,wid);
         if (i>0){
-            return "8";
+            return "redirect:getWeekReport";
         }
-        return "redirect: ?wid="+weekReport.getWid();
+        return "redirect:addscore?wid="+wid;
     }
     //获取待审核假条
     @RequestMapping("updateHoliday")
