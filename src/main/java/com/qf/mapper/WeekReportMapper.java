@@ -13,6 +13,6 @@ public interface WeekReportMapper {
     //通过sid删除周报
     public int deleteWeekReportBySid(int sid);
     //通过sid获取周报
-    List<WeekReport> getWeekReportListByUid(int uid);
+    List<WeekReport> getWeekReportListByUid(int uid,int class_id);
 
 }

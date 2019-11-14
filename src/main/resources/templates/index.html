@@ -60,6 +60,15 @@
         $(".dv_content").attr("src","getStudent");//讲师学生信息展示
         });
 
+        $("body").on("click","#addScore",function(){
+          $(".dv_content").attr("src","addScore");//讲师成绩录入
+        });
+        $("body").on("click","#getWeekReport",function(){
+          $(".dv_content").attr("src","getWeekReport");//讲师查看周报
+        });
+        $("body").on("click","#weekreport",function(){
+          $(".dv_content").attr("src","weekreport");//班主任查看周报
+        });
       })
 
     </script>
@@ -188,15 +197,15 @@
             <li shiro:hasAnyRoles="校长,班主任,讲师"><a href="#exampledropdownDropdown2" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-bar-chart"></i>成绩管理 </a>
               <ul id="exampledropdownDropdown2" class="collapse list-unstyled ">
                 <li><a href="score">成绩分析</a></li>
-                <li shiro:hasRole="讲师"><a href="addScore">成绩录入</a></li>
+                <li shiro:hasRole="讲师"><a href="#" id="addScore">成绩录入</a></li>
               </ul>
             </li>
             <li shiro:hasAnyRoles="学生,班主任,讲师"><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>周报管理 </a>
               <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
                 <li shiro:hasRole="学生"><a href="addWeekReport">新增周报</a></li>
                 <li shiro:hasRole="学生"><a href="getWeekReportInfo">查看周报</a></li>
-                <li shiro:hasRole="讲师"><a href="getWeekReport">查看周报</a></li>
-                <li shiro:hasRole="班主任"><a href="weekreport">查看周报</a></li>
+                <li shiro:hasRole="讲师"><a href="#" id="getWeekReport">查看周报</a></li>
+                <li shiro:hasRole="班主任"><a href="#" id="weekreport">查看周报</a></li>
                 <li shiro:hasRole="学生"><a href="deleteWeekReport">删除周报</a></li>
               </ul>
             </li>

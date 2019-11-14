@@ -18,7 +18,7 @@ public interface HeadMasterService {
     /**
      * 查看周报
      */
-    public List<WeekReport> getWeekReportListByUid(int uid);
+    public List<WeekReport> getWeekReportListByUid(int uid,int class_id);
 
     /**
      * 查看班级学生信息

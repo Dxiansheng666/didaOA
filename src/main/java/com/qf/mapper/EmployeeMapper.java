@@ -15,7 +15,6 @@ public interface EmployeeMapper {
     查看个人资料
      */
     public Employee getHeadMasterByUid(int uid);
-
     //查看员工列表
     public List<Employee> getEmployList();
     //增加员工

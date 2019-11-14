@@ -48,11 +48,17 @@ public class HeadMasterController {
     查看所有周报
      */
     @RequestMapping("weekreport")
-    public String getweekreport(HttpSession session,HttpServletRequest request){
+    public String getweekreport(@RequestParam(defaultValue = "1")int pageNum,@RequestParam(defaultValue = "0")int class_id, HttpSession session,HttpServletRequest request){
+        PageHelper.startPage(pageNum,5);
         User user = (User) session.getAttribute("user");
-        List<WeekReport> weekReportList = headMasterService.getWeekReportListByUid(user.getUid());
-        request.setAttribute("weekReport",weekReportList);
-        return "weekreport";
+        Employee headMasterByUid = headMasterService.getHeadMasterByUid(user.getUid());
+        List<Classes> classesList = classesService.getClassesListByEname(headMasterByUid.getEname());
+        request.setAttribute("list",classesList);
+        List<WeekReport> weekReportList = headMasterService.getWeekReportListByUid(user.getUid(),class_id);
+        PageInfo<WeekReport> pageInfo = new PageInfo<WeekReport>(weekReportList);
+        request.setAttribute("class_id",class_id);
+        request.setAttribute("pageInfo",pageInfo);
+        return "HMtable";
     }
     /*
     获取待审批假条

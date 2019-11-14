@@ -45,8 +45,8 @@ public class HeadMasterServiceImpl implements HeadMasterService {
     }
     //获取学生周报信息
     @Override
-    public List<WeekReport> getWeekReportListByUid(int uid) {
-        return weekReportMapper.getWeekReportListByUid(uid);
+    public List<WeekReport> getWeekReportListByUid(int uid,int class_id) {
+        return weekReportMapper.getWeekReportListByUid(uid,class_id);
     }
     //获取班级学生信息
     @Override
