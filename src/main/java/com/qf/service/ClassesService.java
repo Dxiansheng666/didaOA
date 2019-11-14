@@ -23,4 +23,6 @@ public interface ClassesService {
     public List<Classes> classesList();
     //根据ename查询下属班级
     List<Classes> getClassesListByEname(String ename);
+    //根据ename查询下属班级
+    List<Classes> getClassesListByTname(String ename);
 }

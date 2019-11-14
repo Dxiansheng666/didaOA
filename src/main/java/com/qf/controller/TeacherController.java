@@ -1,13 +1,9 @@
 package com.qf.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.qf.pojo.*;
 import com.qf.service.TeacherService;
-import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -155,7 +149,6 @@ public class TeacherController {
 
     @RequestMapping("score")
     public String op(){
-
         return "echarts";
     }
     @RequestMapping("score3")
@@ -171,8 +164,6 @@ public class TeacherController {
         list.add(Double.parseDouble(scoreList.get(2)));
         list.add(Double.parseDouble(scoreList.get(3)));
         map.put("scoreList",list);
-       // map.put("scoreList",scoreList);
-
         return map;
     }
     @RequestMapping("score2")

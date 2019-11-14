@@ -63,7 +63,7 @@ public class ImportController {
             int i1 = studentService.addStudent(student);
             System.out.println(student);
         }
-        return "getStudentList";
+        return "redirect:getStudentList";
 
     }
     @RequestMapping("downstudent")
