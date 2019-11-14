@@ -5,7 +5,7 @@ public class Employee {
     private String ename;
     private String esex;
     private int eage;
-    private int ephone;
+    private String ephone;
     private String eemail;
     private String job;
     private int uid;
@@ -42,11 +42,11 @@ public class Employee {
         this.eage = eage;
     }
 
-    public int getEphone() {
+    public String getEphone() {
         return ephone;
     }
 
-    public void setEphone(int ephone) {
+    public void setEphone(String ephone) {
         this.ephone = ephone;
     }
 
@@ -88,7 +88,7 @@ public class Employee {
                 '}';
     }
 
-    public Employee(String ename, String esex, int eage, int ephone, String eemail, String job, int uid) {
+    public Employee(String ename, String esex, int eage, String ephone, String eemail, String job, int uid) {
         this.ename = ename;
         this.esex = esex;
         this.eage = eage;

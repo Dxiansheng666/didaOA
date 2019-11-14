@@ -28,7 +28,9 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public int deleteRole(int roleid) {
         Role role = roleMapper.getRolenameById(roleid);
-        userMapper.updateUserByDeleteRole(role.getRolename());
+        if (userMapper.getUserByRolename(role.getRolename())!=null){
+           userMapper.updateUserByDeleteRole(role.getRolename());
+        }
         return roleMapper.deleteRole(roleid);
     }
 

@@ -52,15 +52,23 @@ public class UserServiceImpl implements UserService {
         String rolename=userMapper.getRolenameByUid(uid);
         if(rolename.equals("学生")){
             int sid = studentMapper.getSidByUid(uid);
-            weekReportMapper.deleteWeekReportBySid(sid);
-            studentHolidayMapper.deleteStudentHolidayByUid(uid);
-            scoreMapper.deleteScoreBySid(sid);
+            if(weekReportMapper.getWeekReportListBySid(sid)!=null){
+                weekReportMapper.deleteWeekReportBySid(sid);
+            }
+            if (studentHolidayMapper.getStudentHolidayByUid(uid)!=null){
+                studentHolidayMapper.deleteStudentHolidayByUid(uid);
+            }
+            if (scoreMapper.getScoreListByUid(sid)!=null){
+                scoreMapper.deleteScoreBySid(sid);
+            }
             studentMapper.deleteStudent(uid);
             userMapper.deleteUser(uid);
             return 1;
         }else {
             employeeMapper.deleteEmployeeByUid(uid);
-            employeeHolidayMapper.deleteEmployeeHolidayByUid(uid);
+            if (employeeHolidayMapper.getEmpholidayByUid(uid)!=null){
+                employeeHolidayMapper.deleteEmployeeHolidayByUid(uid);
+            }
             userMapper.deleteUser(uid);
             return 2;
         }
@@ -69,12 +77,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public int updatePasswordByAdmin(int uid) {
         String upwd = MD5Utils.md5("123456");
-        return userMapper.updatePasswordByAdmin(uid, upwd);
+        return userMapper.updateUpwdByUid(upwd,uid);
     }
 
     @Override
-    public List<User> getLikeUser(int uid, String uname, String rolename) {
-        return userMapper.getLikeUser(uid, "%"+uname+"%", rolename);
+    public List<User> getLikeUser(String sname) {
+        return userMapper.getLikeUser("%"+sname+"%");
     }
 
     @Override
@@ -90,5 +98,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<String> getTea(String rolename) {
         return userMapper.getTea(rolename);
+    }
+
+    @Override
+    public List<User> getUserList() {
+        return userMapper.getUserList();
+    }
+
+    @Override
+    public int updateRoleByUid(int uid, String rolename) {
+        return userMapper.updateRoleByUid(uid, rolename);
     }
 }

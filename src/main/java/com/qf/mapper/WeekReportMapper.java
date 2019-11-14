@@ -15,4 +15,7 @@ public interface WeekReportMapper {
     //通过sid获取周报
     List<WeekReport> getWeekReportListByUid(int uid,int class_id);
 
+    //先查看该学生是否拥有周报
+    public List<WeekReport> getWeekReportListBySid(int sid);
+
 }

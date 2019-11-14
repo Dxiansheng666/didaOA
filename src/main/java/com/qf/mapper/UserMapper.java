@@ -29,7 +29,7 @@ public interface UserMapper {
     //重置密码
     public int updatePasswordByAdmin(int uid,String upwd);
     //搜索用户(名字用的是模糊查询，其他精确查询)
-    public List<User> getLikeUser(int uid,String uname,String rolename);
+    public List<User> getLikeUser(String sname);
     //通过uid得到角色
     public String getRolenameByUid(int uid);
     //通过拼音名得到对应的uid
@@ -40,4 +40,12 @@ public interface UserMapper {
     public int updateUserByDeleteRole(String rolename);
     //分配班级时进行分配老师和班主任需要查询
     public List<String> getTea(String rolename);
+
+    //得到所有用户
+    public List<User> getUserList();
+    //超级管理员修改员工信息时，通过uid同时将用户表里的角色进行修改
+    public int updateRoleByUid(int uid,String rolename);
+
+    //通过角色名字得到是否存在拥有这个角色的用户
+    public List<User> getUserByRolename(String rolename);
 }

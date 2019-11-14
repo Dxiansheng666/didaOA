@@ -179,19 +179,19 @@
           <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
           <ul class="list-unstyled">
             <li><a href="index.html"> <i class="icon-home"></i>Home </a></li>
-            <li shiro:hasRole="班主任"><a href="#" id="person"> <i class="icon-padnote"></i>个人信息 </a></li>
-            <li shiro:hasRole="学生"><a href="#" id="getStudnetInfo"> <i class="icon-padnote"></i>个人信息 </a></li>
-            <li shiro:hasRole="讲师"><a href="#" id="teacher"> <i class="icon-padnote"></i>个人信息 </a></li>
-            <li shiro:hasRole="校长"><a href="#" id="getBossInfo"> <i class="icon-padnote"></i>个人信息 </a></li>
+            <li shiro:hasRole="班主任" class="active"><a href="person"> <i class="icon-padnote"></i>个人信息 </a></li>
+            <li shiro:hasRole="学生" class="active"><a href="getStudnetInfo"> <i class="icon-padnote"></i>个人信息 </a></li>
+            <li shiro:hasRole="讲师" class="active"><a href="teacher"> <i class="icon-padnote"></i>个人信息 </a></li>
+            <li shiro:hasRole="校长" class="active"><a href="getBossInfo"> <i class="icon-padnote"></i>个人信息 </a></li>
             <li shiro:hasAnyRoles="班主任,讲师,超级管理员"><a href="#exampledropdownDropdown1"aria-expanded="false" data-toggle="collapse"><i class="icon-grid"></i>信息管理 </a>
               <ul id="exampledropdownDropdown1" class="collapse list-unstyled ">
                 <li shiro:hasRole="班主任"><a href="#" id="getStudentList">学生信息管理</a></li>
                 <li shiro:hasRole="讲师"><a href="#" id="getStudent">学生信息管理</a></li>
-                <li shiro:hasRole="超级管理员"><a href="employee">员工信息管理</a></li>
-                <li shiro:hasRole="超级管理员"><a href="course">课程信息管理</a></li>
-                <li shiro:hasRole="超级管理员"><a href="user">用户信息管理</a></li>
-                <li shiro:hasRole="超级管理员"><a href="classes">班级信息管理</a></li>
-                <li shiro:hasRole="超级管理员"><a href="role">角色信息管理</a></li>
+                <li shiro:hasRole="超级管理员"><a href="getEmployeeAll">员工信息管理</a></li>
+                <li shiro:hasRole="超级管理员"><a href="getCourseList">课程信息管理</a></li>
+                <li shiro:hasRole="超级管理员"><a href="getUserList">用户信息管理</a></li>
+                <li shiro:hasRole="超级管理员"><a href="getClassesList">班级信息管理</a></li>
+                <li shiro:hasRole="超级管理员"><a href="rolenameList">角色信息管理</a></li>
               </ul>
             </li>
             <li shiro:hasAnyRoles="校长,班主任,讲师"><a href="#exampledropdownDropdown2" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-bar-chart"></i>成绩管理 </a>

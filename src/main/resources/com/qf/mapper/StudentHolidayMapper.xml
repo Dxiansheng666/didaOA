@@ -40,4 +40,8 @@
             </otherwise>
         </choose>
     </select>
+
+    <select id="getStudentHolidayByUid" parameterType="int" resultType="student_Holiday">
+        select * from student_holiday where uid=#{uid}
+    </select>
 </mapper>

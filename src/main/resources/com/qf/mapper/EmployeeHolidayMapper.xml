@@ -9,4 +9,8 @@
     <insert id="addHoliday" parameterType="employee_Holiday" useGeneratedKeys="true" keyProperty="hid">
         insert into employee_holiday(uid,start_date,end_date,reason) values (#{employee.uid},#{start_date},#{end_date},#{reason})
     </insert>
+
+    <select id="getEmpholidayByUid" resultType="employee_Holiday" parameterType="int">
+        select * from employee_holiday where uid=#{uid}
+    </select>
 </mapper>
