@@ -135,6 +135,47 @@
                         <input type="submit" value="提交" class="mr-3 btn btn-primary">
                     </div>
                 </form>
+
+
+
+                <form shiro:hasRole="学生" class="form-horizontal" action="saveHoliday" method="post">
+                    <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">姓名：</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" name="uname" readonly="readonly" th:value="${#httpSession.getAttribute('user').uname}" type="text">
+                        </div>
+                    </div>
+                    <div class="line"></div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">开始时间：</label>
+                        <div class="col-sm-10">
+                            <input type="date" name="start_date" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="line"></div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">结束时间：</label>
+                        <div class="col-sm-10">
+                            <input type="date" name="end_date" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="line"></div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">请假原因：</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="reason" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="line"></div>
+                    <input type="hidden" name="uid" th:value="${#httpSession.getAttribute('user').uid}">
+                    <div class="form-group">
+                        <input type="submit" value="提交" class="mr-3 btn btn-primary">
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>

@@ -5,6 +5,8 @@ import com.qf.pojo.*;
 import java.util.List;
 
 public interface HeadMasterService {
+     List<String> getAvgScore(int class_id);
+
     /**
      * 查看个人资料
      */

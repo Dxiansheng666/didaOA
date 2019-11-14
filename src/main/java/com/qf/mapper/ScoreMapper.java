@@ -15,4 +15,6 @@ public interface ScoreMapper {
 
     //删除学生之前先查询该学生是否有分数
     public List<Score> getScoreListByUid(int sid);
+
+    List<String> getAvgScore(int class_id);
 }
