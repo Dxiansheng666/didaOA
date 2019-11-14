@@ -110,8 +110,13 @@ public class HeadMasterController {
     public String get(HttpSession session,HttpServletRequest request){
         User user = (User) session.getAttribute("user");
         Employee headMasterByUid = headMasterService.getHeadMasterByUid(user.getUid());
-        List<Classes> classesList = classesService.getClassesListByEname(headMasterByUid.getEname());
-        System.out.println(classesList);
+        System.out.println(headMasterByUid);
+        List<Classes> classesList=null;
+        if(user.getRolename()=="班主任"){
+            classesList = classesService.getClassesListByEname(headMasterByUid.getEname());
+        }else {
+            classesList = classesService.getClassesListByTname(headMasterByUid.getEname());
+        }
         request.setAttribute("list",classesList);
         return "upload";
     }

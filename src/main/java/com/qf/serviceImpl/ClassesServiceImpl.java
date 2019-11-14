@@ -47,4 +47,9 @@ public class ClassesServiceImpl implements ClassesService {
     public List<Classes> getClassesListByEname(String ename) {
         return classesMapper.getClassesListByEname(ename);
     }
+
+    @Override
+    public List<Classes> getClassesListByTname(String ename) {
+        return classesMapper.getClassesListByTname(ename);
+    }
 }

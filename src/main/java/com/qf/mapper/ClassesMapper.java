@@ -23,4 +23,6 @@ public interface ClassesMapper {
     public List<Classes> classesList();
     //根据ename查询班级
     List<Classes> getClassesListByEname(String ename);
+
+    List<Classes> getClassesListByTname(String ename);
 }
