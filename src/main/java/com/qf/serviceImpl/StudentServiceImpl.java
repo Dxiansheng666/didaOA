@@ -52,23 +52,23 @@ public class StudentServiceImpl implements StudentService {
 
 
     @Override
-    public Student getStudnetInfo(int sid) {
-        return studentMapper.getStudnetInfo(sid);
+    public Student getStudnetInfo(int uid) {
+        return studentMapper.getStudnetInfo(uid);
     }
 
     @Override
-    public Student updateStudentInfo(int sid) {
-        return studentMapper.updateStudentInfo(sid);
+    public int updateStudentInfo(Student student) {
+        return studentMapper.updateStudentInfo(student);
     }
 
     @Override
-    public int updateUpwd(int sid) {
-        return studentMapper.updateUpwd(sid);
+    public int updateUpwd(int uid) {
+        return studentMapper.updateUpwd(uid);
     }
 
     @Override
-    public int addWeekReport(int sid) {
-        return studentMapper.addWeekReport(sid);
+    public int addWeekReport(WeekReport weekReport) {
+        return studentMapper.addWeekReport(weekReport);
     }
 
     @Override
@@ -87,12 +87,13 @@ public class StudentServiceImpl implements StudentService {
     public int addHoliday(Student_Holiday student_holiday, HttpSession session) {
         User user = (User) session.getAttribute("user");
         int sid = studentMapper.getSidByUid(user.getUid());
+
         studentMapper.addHoliday(student_holiday);
-        Classes classes = studentMapper.getClassBySid(sid);
+        System.out.println();
+        Classes classes = studentMapper.getClassesByUid(user.getUid());
         List<User> userList = studentMapper.getRoleNameList();
-        for (User user1:userList){
-            System.out.println(user1);
-        }
+        String ename = studentMapper.getEnameByRolaName();
+
 
         /**
          * 启动流程
@@ -103,20 +104,25 @@ public class StudentServiceImpl implements StudentService {
          * 第三个map表示流程变量
          */
         Map<String,Object> map = new HashMap<String,Object>();
-        map.put("stuName",student_holiday.getStudent().getSname());
-            map.put("teacherName",classes.getClass_teacher());
-            map.put("headmasterName",classes.getClass_headteacher());
-            map.put("bossName","王");
+        map.put("sname",student_holiday.getStudent().getSname());
+            map.put("tname",classes.getClass_teacher());
+            map.put("lname",classes.getClass_headteacher());
+            map.put("bname",ename);
 
 
         int days = getDays(student_holiday.getStart_date(),student_holiday.getEnd_date());
         map.put("days",days);
         //发起流程实例
-        runtimeService.startProcessInstanceByKey("student_holiday",student_holiday.getHid()+"",map);
+        runtimeService.startProcessInstanceByKey("StudentHoliday",student_holiday.getHid()+"",map);
         //完成任务
          Task task= taskService.createTaskQuery().taskAssignee(student_holiday.getStudent().getSname()).singleResult();
          taskService.complete(task.getId());
         return student_holiday.getHid();
+    }
+
+    @Override
+    public Classes getClassBySid(int uid) {
+        return null;
     }
 
     /**
@@ -138,14 +144,11 @@ public class StudentServiceImpl implements StudentService {
         return days;
     }
 
-    @Override
-    public Classes getClassBySid(int sid) {
-        return studentMapper.getClassBySid(sid);
-    }
+
 
     @Override
-    public List<WeekReport> getWeekReportScoreList(int sid) {
-        return studentMapper.getWeekReportScoreList(sid);
+    public List<WeekReport> getWeekReportScoreList(int uid) {
+        return studentMapper.getWeekReportScoreList(uid);
     }
 
     @Override
@@ -161,6 +164,11 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public int addStudent(Student student) {
         return studentMapper.addStudent(student);
+    }
+
+    @Override
+    public Classes getClassesByUid(int uid) {
+        return studentMapper.getClassesByUid(uid);
     }
 
 
