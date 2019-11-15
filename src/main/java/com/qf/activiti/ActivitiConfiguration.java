@@ -2,7 +2,6 @@ package com.qf.activiti;
 
 
 import org.activiti.engine.HistoryService;
-import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.spring.ProcessEngineFactoryBean;
@@ -10,12 +9,9 @@ import org.activiti.spring.SpringProcessEngineConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
-import java.io.IOException;
 
 /**
  * @author FJM
@@ -35,21 +31,21 @@ public class ActivitiConfiguration {
         spec.setDataSource(dataSource);
         spec.setTransactionManager(platformTransactionManager);
         spec.setDatabaseSchemaUpdate("true");
-        Resource[] resources = new Resource[0];
-        //启动自动部署流程
-        try {
-            resources = new PathMatchingResourcePatternResolver().getResources("classpath*:processes/*/bpmn");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        spec.setDeploymentResources(resources);
+//        Resource[] resources = new Resource[0];
+//        //启动自动部署流程
+//        try {
+//            resources = new PathMatchingResourcePatternResolver().getResources("classpath*:processes/*/bpmn");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        spec.setDeploymentResources(resources);
         return spec;
     }
 
     @Bean
     public ProcessEngineFactoryBean processEngineFactory() {
         ProcessEngineFactoryBean processEngineFactoryBean = new ProcessEngineFactoryBean();
-        //processEngineFactoryBean.setProcessEngineConfiguration(springProcessEngineConfiguration());
+        processEngineFactoryBean.setProcessEngineConfiguration(springProcessEngineConfiguration());
         return processEngineFactoryBean;
     }
 
