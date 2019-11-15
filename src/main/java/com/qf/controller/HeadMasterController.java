@@ -130,28 +130,33 @@ public class HeadMasterController {
 
     @RequestMapping("getscore")
     public String op(){
-        return "HeadMaster";
+        //return "HeadMaster";
+        return "echartsbyf";
     }
     @RequestMapping("getscore1")
     @ResponseBody
-    public Map<String,Object> getScoreBySid(HttpSession session){
+    public Map<String,Object> getScoreBySid(HttpSession session,int cccname){
         Map<String,Object> map = new HashMap<>();
         User user = (User) session.getAttribute("user");
         Employee headMasterByUid = headMasterService.getHeadMasterByUid(user.getUid());
         List<Classes> classesList = classesService.getClassesListByEname(headMasterByUid.getEname());
-        int i = 0;
-        for (Classes classes : classesList) {
+ //       int i = 0;
+//        for (Classes classes : classesList) {
 
-            List<String>  scoreList = headMasterService.getAvgScore(classes.getClass_id());
+            List<String>  scoreList = headMasterService.getAvgScore(cccname);
             List<Double> list = new ArrayList<>();
             list.add(Double.parseDouble(scoreList.get(0)));
             list.add(Double.parseDouble(scoreList.get(1)));
             list.add(Double.parseDouble(scoreList.get(2)));
             list.add(Double.parseDouble(scoreList.get(3)));
-            map.put("scoreList"+i,list);
-            i++;
-        }
-        map.put("clist",classesList);
+//            map.put("scoreList"+i,list);
+        map.put("scoreList",list);
+ //           i++;
+//        }
+ //       map.put("clist",classesList);
+        System.out.println(list.size());
+        System.out.println(cccname);
         return map;
+
     }
 }
