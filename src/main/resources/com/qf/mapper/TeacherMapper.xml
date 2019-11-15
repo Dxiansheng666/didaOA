@@ -34,10 +34,17 @@
 </resultMap>
     <select id="getStudent_HolidayList" resultMap="student_HolidayMap">
         select * from student_holiday inner join user on student_holiday.uid=user.uid
-        where hid in
-        <foreach collection="list" item="i" separator="," open="(" close=")">
-            #{i}
-        </foreach>
+        <choose>
+            <when test="list != null and list.size > 0">
+                and hid in
+                <foreach collection="list" item="i" separator="," open="(" close=")">
+                    #{i}
+                </foreach>
+            </when>
+            <otherwise>
+                and hid=0
+            </otherwise>
+        </choose>
     </select>
     <update id="updateStudent_Holiday" >
         update student_holiday set teacher_state=#{arg1} where hid=#{hid}
