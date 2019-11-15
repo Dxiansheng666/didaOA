@@ -10,4 +10,8 @@
     <select id="getScoreListByUid" parameterType="int" resultType="score">
         select * from score where sid=#{sid}
     </select>
+
+    <select id="getAvgScore" resultType="java.lang.String">
+        SELECT AVG(score) FROM score,student WHERE score.sid=student.sid AND student.class_id=#{class_id} GROUP BY stage ORDER BY stage
+    </select>
 </mapper>

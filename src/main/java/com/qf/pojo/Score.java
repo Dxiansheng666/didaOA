@@ -6,6 +6,24 @@ public class Score {
     private Course course;
     private String score;
     private String stage;
+    private int sid;
+    private int course_id;
+
+    public int getSid() {
+        return sid;
+    }
+
+    public void setSid(int sid) {
+        this.sid = sid;
+    }
+
+    public int getCourse_id() {
+        return course_id;
+    }
+
+    public void setCourse_id(int course_id) {
+        this.course_id = course_id;
+    }
 
     public Score(int score_id, Student student, Course course, String score, String stage) {
         this.score_id = score_id;

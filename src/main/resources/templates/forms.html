@@ -76,6 +76,32 @@
                           <button type="submit" class="btn btn-primary">修改密码</button>
                         </div>
                       </form>
+                      <form shiro:hasRole="学生" class="form-inline" action="updateUpwd" method="post">
+                        <div class="form-group">
+                          <label for="inlineFormInput" class="sr-only">用户名</label>
+                          <input id="inlineFormInput2" name="uname" type="text" class="mr-3 form-control" th:value="${#httpSession.getAttribute('user').uname}" readonly="readonly">
+                        </div>
+                        <div class="form-group">
+                          <label for="inlineFormInputGroup" class="sr-only">密码</label>
+                          <input id="inlineFormInputGroup2" name="upwd" type="text" class="mr-3 form-control" th:value="${#httpSession.getAttribute('user').upwd}">
+                        </div>
+                        <div class="form-group">
+                          <button type="submit" class="btn btn-primary">修改密码</button>
+                        </div>
+                      </form>
+                      <form shiro:hasRole="校长" class="form-inline" action="updateUpwd" method="post">
+                        <div class="form-group">
+                          <label for="inlineFormInput" class="sr-only">用户名</label>
+                          <input id="inlineFormInput3" name="uname" type="text" class="mr-3 form-control" th:value="${#httpSession.getAttribute('user').uname}" readonly="readonly">
+                        </div>
+                        <div class="form-group">
+                          <label for="inlineFormInputGroup" class="sr-only">密码</label>
+                          <input id="inlineFormInputGroup3" name="upwd" type="text" class="mr-3 form-control" th:value="${#httpSession.getAttribute('user').upwd}">
+                        </div>
+                        <div class="form-group">
+                          <button type="submit" class="btn btn-primary">修改密码</button>
+                        </div>
+                      </form>
 
 
                     </div>
@@ -93,6 +119,7 @@
                           <button type="submit" class="btn btn-primary">修改密码</button>
                         </div>
                       </form>
+
                     </div>
                   </div>
                 </div>
@@ -135,14 +162,14 @@
                         <div class="form-group row">
                           <label class="col-sm-3 form-control-label">手机号</label>
                           <div class="col-sm-9">
-                            <input type="text" disabled="" class="form-control" th:value="${person.ephone}" readonly="readonly">
+                            <input type="text" class="form-control" th:value="${person.ephone}" readonly="readonly">
                           </div>
                         </div>
                         <div class="line"></div>
                         <div class="form-group row">
                           <label class="col-sm-3 form-control-label">邮箱</label>
                           <div class="col-sm-9">
-                            <input type="text" disabled="" class="form-control" th:value="${person.eemail}" readonly="readonly">
+                            <input type="text" class="form-control" th:value="${person.eemail}" readonly="readonly">
                           </div>
                         </div>
 
@@ -156,6 +183,103 @@
                         </div>
                       </form>
                       <form shiro:hasRole="讲师" class="form-horizontal">
+                        <div class="form-group row">
+                          <label class="col-sm-3 form-control-label">姓名</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" th:value="${employee.ename}" readonly="readonly">
+                          </div>
+                        </div>
+                        <div class="line"></div>
+                        <div class="form-group row">
+                          <label class="col-sm-3 form-control-label">性别</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" th:value="${employee.esex}" readonly="readonly">
+                          </div>
+                        </div>
+                        <div class="line"></div>
+                        <div class="form-group row">
+                          <label class="col-sm-3 form-control-label">年龄</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" th:value="${employee.eage}" readonly="readonly">
+                          </div>
+                        </div>
+                        <div class="line"></div>
+                        <div class="form-group row">
+                          <label class="col-sm-3 form-control-label">手机号</label>
+                          <div class="col-sm-9">
+                            <input type="text" disabled="" class="form-control" th:value="${employee.ephone}" readonly="readonly">
+                          </div>
+                        </div>
+                        <div class="line"></div>
+                        <div class="form-group row">
+                          <label class="col-sm-3 form-control-label">邮箱</label>
+                          <div class="col-sm-9">
+                            <input type="text" disabled="" class="form-control" th:value="${employee.eemail}" readonly="readonly">
+                          </div>
+                        </div>
+
+
+
+                        <div class="line"></div>
+                        <div class="form-group row">
+                          <div class="col-sm-4 offset-sm-3">
+
+                          </div>
+                        </div>
+                      </form>
+
+
+                      <form shiro:hasRole="学生" class="form-horizontal">
+                        <div class="form-group row">
+                          <label class="col-sm-3 form-control-label">姓名</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" th:value="${student.sname}" readonly="readonly">
+                          </div>
+                        </div>
+                        <div class="line"></div>
+                        <div class="form-group row">
+                          <label class="col-sm-3 form-control-label">性别</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" th:value="${student.ssex}" readonly="readonly">
+                          </div>
+                        </div>
+                        <div class="line"></div>
+                        <div class="form-group row">
+                          <label class="col-sm-3 form-control-label">年龄</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" th:value="${student.sage}" readonly="readonly">
+                          </div>
+                        </div>
+                        <div class="line"></div>
+                        <div class="form-group row">
+                          <label class="col-sm-3 form-control-label">手机号</label>
+                          <div class="col-sm-9">
+                            <input type="text" disabled="" class="form-control" th:value="${student.sphone}" readonly="readonly">
+                          </div>
+                        </div>
+                        <div class="line"></div>
+                        <div class="form-group row">
+                          <label class="col-sm-3 form-control-label">邮箱</label>
+                          <div class="col-sm-9">
+                            <input type="text" disabled="" class="form-control" th:value="${student.semail}" readonly="readonly">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-sm-3 form-control-label">班级</label>
+                          <div class="col-sm-9">
+                            <input type="text" disabled="" class="form-control" th:value="${classes.class_id}" readonly="readonly">
+                          </div>
+                        </div>
+                        <a href="editStudentInfo" >修改资料</a>
+
+                        <div class="line"></div>
+                        <div class="form-group row">
+                          <div class="col-sm-4 offset-sm-3">
+
+                          </div>
+                        </div>
+                      </form>
+                      <form shiro:hasRole="校长" class="form-horizontal">
                         <div class="form-group row">
                           <label class="col-sm-3 form-control-label">姓名</label>
                           <div class="col-sm-9">

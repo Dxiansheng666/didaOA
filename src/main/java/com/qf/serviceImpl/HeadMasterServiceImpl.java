@@ -33,6 +33,14 @@ public class HeadMasterServiceImpl implements HeadMasterService {
     private RuntimeService runtimeService;
     @Autowired
     private TaskService taskService;
+    @Autowired
+    private ScoreMapper scoreMapper;
+
+    @Override
+    public List<String> getAvgScore(int class_id) {
+        return scoreMapper.getAvgScore(class_id);
+    }
+
     //获取个人资料
     @Override
     public Employee getHeadMasterByUid(int uid) {

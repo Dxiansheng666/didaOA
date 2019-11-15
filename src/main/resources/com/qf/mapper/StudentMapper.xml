@@ -41,25 +41,25 @@
 <select id="getStudnetInfo" parameterType="int" resultType="student">
     select * from student where uid=#{uid}
 </select>
-    <update id="updateStudentInfo" parameterType="int">
-        update student set sname=#{sname},ssex=#{ssex},sage=#{sage},sphone=#{sphone},semail=#{semail} where uid=#{uid}
+    <update id="updateStudentInfo" parameterType="student">
+        update student set sname=#{sname},ssex=#{ssex},sage=#{sage},sphone=#{sphone},semail=#{semail} where uid=#{user.uid}
     </update>
 <update id="updateUpwd" parameterType="int">
     update user set upwd=#{upwd} where uid=#{uid}
 </update>
-    <insert id="addWeekReport" parameterType="int">
-        insert into weekreport (title,create_date,info) values (#{title},#{create_date},#{info})
+    <insert id="addWeekReport" parameterType="weekreport">
+        insert into weekreport (title,create_date,info,sid) values (#{title},#{create_date},#{info},#{sid})
     </insert>
     <delete id="deleteWeekReport" parameterType="int">
-        delete from weekreport where sid =#{sid}
+        delete from weekreport where wid =#{wid}
     </delete>
 
-    <select id="getWeekReport" parameterType="int" resultType="weekReport">
+    <select id="getWeekReportList" parameterType="int" resultType="weekreport">
         select * from weekreport where sid =#{sid}
     </select>
 
     <select id="getWeekReportScore" resultType="java.lang.String" parameterType="int">
-        select score from weekreport where sid=#{sid}
+        select score from weekreport where uid=#{uid}
     </select>
     <select id="getRoleNameList" resultType="user">
         select rolename from user where uid =#{uid}
@@ -73,5 +73,11 @@
     </select>
     <select id="getStudentListByClassId" resultMap="studentMap">
         select * from student,classes where classes.class_id=student.class_id and student.class_id=#{class_id}
+    </select>
+    <insert id="addHoliday" parameterType="student_Holiday" >
+        insert into student_holiday  (uid,start_date,end_date,reason) values (#{uid},#{start_date},#{end_date},#{reason})
+    </insert>
+    <select id="getEnameByRolaName" resultType="java.lang.String">
+        select ename from user inner join employee on user.uid = employee.uid and  rolename="校长"
     </select>
 </mapper>

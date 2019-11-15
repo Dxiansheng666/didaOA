@@ -15,74 +15,113 @@ import java.util.List;
 public class StudentController {
     @Autowired
     private StudentService studentService;
-    @RequestMapping("getStudnetInfo")
+    @RequestMapping("getStudnetInfo")//查看个人资料
     public String getStudentInfo(HttpSession session, HttpServletRequest request){
     User user = (User) session.getAttribute("user");
     Student student = studentService.getStudnetInfo(user.getUid());
+    Classes classes = studentService.getClassesByUid(user.getUid());
     request.setAttribute("student",student);
-    return "getstudent";
+    request.setAttribute("classes",classes);
+        return "forms";//返回到页面
+    }
+    @RequestMapping("editStudentInfo")
+    public String editStudentInfo(HttpSession session,HttpServletRequest request){
+        User user = (User) session.getAttribute("user");
+        Student student=studentService.getStudnetInfo(user.getUid());
+        request.setAttribute("student",student);
+        System.out.println(user.getUid());
+        System.out.println(student.getSname());
+        return "update";
+    }
+    @RequestMapping("updateStudentInfo")
+    public String updateStudentInfo(Student student,HttpServletRequest request,HttpSession session){
+        User user = (User) session.getAttribute("user");
+        student.setUser(user);
+        int i =studentService.updateStudentInfo(student);
+        if(i>0) {
+            System.out.println(i);
+            return "redirect:/getStudnetInfo";
+        }
+        return "updateStudentInfo";
     }
     @RequestMapping("updateUpwd")
     public String updateUpwd(HttpSession session, HttpServletRequest request){
         User user = (User) session.getAttribute("user");
         int i = studentService.updateUpwd(user.getUid());
         if(i>0){
-            return "index";
+            return "forms";
         }
         return "updateUpwd";
     }
-    @RequestMapping("getWeekreportInfo")
+    @RequestMapping("getWeekReportInfo")
     public String getWeekReportInfo(HttpSession session, HttpServletRequest request){
         User user = (User) session.getAttribute("user");
-        List<WeekReport> weekReportList= studentService.getWeekReportList(user.getUid());
+        int sid = studentService.getSidByUid(user.getUid());
+        List<WeekReport> weekReportList= studentService.getWeekReportList(sid);
         for(WeekReport wk:weekReportList){
             System.out.println(wk);
         }
         request.setAttribute("weekReportList",weekReportList);
-        return "weekReportList";
+        return "getWeekReportInfo";
     }
     @RequestMapping("addWeekReport")
     public String addWeekReport(){
-        return "weekReportList";
+        return "forms";
+    }
+    @RequestMapping("addWRP")
+    public String addWRP(){
+        System.out.println(123);
+        return "addWeekReport";
     }
     @RequestMapping("saveWeekReport")
-    public String saveWeekReport(HttpSession session, HttpServletRequest request){
+    public String saveWeekReport(WeekReport weekReport,HttpSession session){
         User user = (User) session.getAttribute("user");
-        int i = studentService.addWeekReport(user.getUid());
+        int sid = studentService.getSidByUid(user.getUid());
+        weekReport.setSid(sid);
+        int i = studentService.addWeekReport(weekReport);
         if(i>0){
-            return "weekReportList";
+            return "redirect:getWeekReportInfo";
         }
-        return "addweekReport";
+        return "redirect:saveWeekReport";
     }
     @RequestMapping("deleteWeekReport")
     @ResponseBody
-    public String deleteWeekReport(HttpSession session, HttpServletRequest request){
+    public String deleteWeekReport(HttpSession session, HttpServletRequest request,int wid){
         User user = (User) session.getAttribute("user");
-        List<WeekReport> weekReportScoreList = studentService.getWeekReportScoreList(user.getUid());
-        for(WeekReport wrs :weekReportScoreList) {
+        int sid = studentService.getSidByUid(user.getUid());
+        List<WeekReport> weekReportList = studentService.getWeekReportList(sid);
+        for(WeekReport wrs :weekReportList) {
             System.out.println(wrs);
-            if(wrs!=null){
-                return "删除失败！";
+            if(wrs.getScore()!=null && wrs.getWid() == wid){
+                return "不能删除！";
             }
-        int i = studentService.deleteWeekReport(user.getUid());
-
         }
-        return "weekReportList";
+        int i = studentService.deleteWeekReport(wid);
+        return "success";
     }
-   @RequestMapping("add")
+   @RequestMapping("addHoliday")
         public String add(){
-        return "holiday";
+        return "addHoliday";
         }
 
     @RequestMapping("saveHoliday")
-    public String saveHoliday(Student_Holiday student_holiday,HttpSession session){
+    public String saveHoliday(Student_Holiday student_holiday,HttpSession session,HttpServletRequest request){
         Student student = new Student();
-        User user1 = (User) session.getAttribute("user1");
+        User user1 = (User) session.getAttribute("user");
+        System.out.println(user1);
         int sid = studentService.getSidByUid(user1.getUid());
-        student.setSid(sid);
+        student.setUser(user1);
         student.setSname(user1.getUname());
         student_holiday.setStudent(student);
+        System.out.println(student);
         studentService.addHoliday(student_holiday,session);
-        return "redirect:index";
+        Classes classes = studentService.getClassesByUid(user1.getUid());
+        request.setAttribute("student",student);
+        request.setAttribute("classes",classes);
+        return "forms";
+    }
+    @RequestMapping("fanhui")
+    public String fanhui(){
+        return "redirect:getStudnetInfo";
     }
 }

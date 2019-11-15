@@ -44,7 +44,7 @@
                 <h3 class="h4">请假信息</h3>
             </div>
             <div class="card-body">
-                <form class="form-horizontal" action="saveEmployeeHoliday" method="post">
+                <form shiro:hasRole="班主任" class="form-horizontal" action="saveEmployeeHoliday" method="post">
                     <div class="form-group row">
                         <label class="col-sm-3 form-control-label">姓名：</label>
                         <div class="col-sm-10">
@@ -89,6 +89,93 @@
                         <input type="submit" value="提交" class="mr-3 btn btn-primary">
                     </div>
                 </form>
+
+                <form shiro:hasRole="讲师" class="form-horizontal" action="save" method="post">
+                    <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">姓名：</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" name="uname" readonly="readonly" th:value="${#httpSession.getAttribute('user').uname}" type="text">
+                        </div>
+                    </div>
+                    <div class="line"></div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">开始时间：</label>
+                        <div class="col-sm-10">
+                            <input type="date" name="start_date" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="line"></div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">结束时间：</label>
+                        <div class="col-sm-10">
+                            <input type="date" name="end_date" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="line"></div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">请假原因：</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="reason" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">校长</label>
+                        <div class="col-sm-10">
+                            <select name="class_id" class="form-control mb-3">
+                                <option th:each="boss:${list}" th:value="${boss.ename}" th:text="${boss.ename}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="line"></div>
+
+
+                    <div class="form-group">
+                        <input type="submit" value="提交" class="mr-3 btn btn-primary">
+                    </div>
+                </form>
+
+
+
+                <form shiro:hasRole="学生" class="form-horizontal" action="saveHoliday" method="post">
+                    <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">姓名：</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" name="uname" readonly="readonly" th:value="${#httpSession.getAttribute('user').uname}" type="text">
+                        </div>
+                    </div>
+                    <div class="line"></div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">开始时间：</label>
+                        <div class="col-sm-10">
+                            <input type="date" name="start_date" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="line"></div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">结束时间：</label>
+                        <div class="col-sm-10">
+                            <input type="date" name="end_date" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="line"></div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">请假原因：</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="reason" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="line"></div>
+                    <input type="hidden" name="uid" th:value="${#httpSession.getAttribute('user').uid}">
+                    <div class="form-group">
+                        <input type="submit" value="提交" class="mr-3 btn btn-primary">
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>
