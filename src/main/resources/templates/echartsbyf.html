@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="/js/echarts.min.js"></script>
+    <script src="/js/jquery-3.4.1.js"></script>
+
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
+    <!-- Fontastic Custom icon font-->
+    <link rel="stylesheet" href="css/fontastic.css">
+    <!-- Google fonts - Poppins -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="css/custom.css">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="img/favicon.ico">
+    <!-- Tweaks for older IEs--><!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+</head>
+<body>
+<div class="page">
+    <!-- Main Navbar-->
+    <div class="page-content d-flex align-items-stretch">
+        <!-- Side Navbar -->
+        <div class="content-inner">
+            <!-- Forms Section-->
+            <section class="forms">
+                <div class="container-fluid">
+                    <div class="row">
+
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-close">
+                                    <div class="dropdown">
+                                        <button type="button" id="closeCard5" data-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i
+                                                class="fa fa-ellipsis-v"></i></button>
+                                        <div aria-labelledby="closeCard5"
+                                             class="dropdown-menu dropdown-menu-right has-shadow"><a href="#"
+                                                                                                     class="dropdown-item remove">
+                                            <i class="fa fa-times"></i>Close</a><a href="#" class="dropdown-item edit">
+                                            <i class="fa fa-gear"></i>Edit</a></div>
+                                    </div>
+                                </div>
+                                <div class="card-header d-flex align-items-center">
+                                    <h3 class="h4">成绩分析</h3>
+                                </div>
+                                <div class="col-sm-9">
+                                    请输入班级:<input type="text" class="form-control" name="ccc" id="cccid">
+                                    <button class="btn btn-primary" id="sou">搜索</button>
+                                </div>
+                                <div class="form-group">
+                                </div>
+                                <div class="card-body" id="main" style="width: 600px;height:400px;"></div>
+                                <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+
+                                <script type="text/javascript">
+                                    $(function () {
+                                        $("#sou").click(function () {
+                                            var clid = $("#cccid").val();
+                                            $.ajax({
+                                                type: "get",
+                                                url: "/getscore1",
+                                                cache: false,
+                                                data:{cccname:clid},
+                                                success: function (data) {
+                                                    if (data != null) {
+                                                        //alert(data);
+                                                        var data1 = data.scoreList;
+                                                        op(data1);
+
+                                                    } else {
+                                                        alert("加载失败");
+                                                    }
+                                                }
+                                            })
+
+                                            function op(data1) {
+
+
+                                                var option = {
+                                                    title: {
+                                                        text: '该班各阶段平均成绩'
+                                                    },
+                                                    tooltip: {},
+                                                    legend: {
+                                                        data: ['成绩']
+                                                    },
+                                                    xAxis: {
+                                                        data: ["第一阶段", "第二阶段", "第三阶段", "第四阶段"]
+                                                    },
+                                                    yAxis: {},
+                                                    series: [{
+                                                        name: '成绩',
+                                                        type: 'bar',
+                                                        data: data1
+                                                    }],
+
+                                                };
+                                                var myChart = echarts.init(document.getElementById('main'));
+                                                myChart.setOption(option);
+                                            }
+                                        })
+
+                                    })
+                                </script>
+                                <div class="line"></div>
+                                <div class="form-group row">
+                                    <div class="col-sm-4 offset-sm-3">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+    </div>
+</div>
+<!-- JavaScript files-->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/popper.js/umd/popper.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="vendor/jquery.cookie/jquery.cookie.js"></script>
+<script src="vendor/chart.js/Chart.min.js"></script>
+<script src="vendor/jquery-validation/jquery.validate.min.js"></script>
+<!-- Main File-->
+<script src="js/front.js"></script>
+</body>
+</html>
