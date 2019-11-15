@@ -1,5 +1,6 @@
 package com.qf.mapper;
 import com.qf.pojo.Employee;
+import com.qf.pojo.Employee_Holiday;
 
 import java.util.List;
 
@@ -27,4 +28,6 @@ public interface EmployeeMapper {
     public Employee getEmpByEname(String ename);
     //获取校长集合
     List<Employee> getBossByRoleName(String boss);
+    //查询自己请假信息
+    public List<Employee_Holiday> getEmpholidayByUid(int uid);
 }

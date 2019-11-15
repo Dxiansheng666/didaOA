@@ -2,6 +2,8 @@ package com.qf.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.qf.mapper.EmployeeHolidayMapper;
+import com.qf.mapper.EmployeeMapper;
 import com.qf.pojo.*;
 import com.qf.service.ClassesService;
 import com.qf.service.HeadMasterService;
@@ -10,20 +12,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class HeadMasterController {
     @Autowired
     private HeadMasterService headMasterService;
-
+    @Autowired
+    private EmployeeMapper employeeMapper;
     /*
     查看个人资料
      */
@@ -124,34 +123,16 @@ public class HeadMasterController {
         request.setAttribute("list",classesList);
         return "upload";
     }
-
-
-    //成绩分析
-
-    @RequestMapping("getscore")
-    public String op(){
-        return "HeadMaster";
-    }
-    @RequestMapping("getscore1")
-    @ResponseBody
-    public Map<String,Object> getScoreBySid(HttpSession session){
-        Map<String,Object> map = new HashMap<>();
+    /**
+     * 获取个人请假信息
+     */
+    @RequestMapping("getempholiday")
+    public String getempholiday(@RequestParam(defaultValue = "1")int pageNum,HttpSession session,HttpServletRequest request){
         User user = (User) session.getAttribute("user");
-        Employee headMasterByUid = headMasterService.getHeadMasterByUid(user.getUid());
-        List<Classes> classesList = classesService.getClassesListByEname(headMasterByUid.getEname());
-        int i = 0;
-        for (Classes classes : classesList) {
-
-            List<String>  scoreList = headMasterService.getAvgScore(classes.getClass_id());
-            List<Double> list = new ArrayList<>();
-            list.add(Double.parseDouble(scoreList.get(0)));
-            list.add(Double.parseDouble(scoreList.get(1)));
-            list.add(Double.parseDouble(scoreList.get(2)));
-            list.add(Double.parseDouble(scoreList.get(3)));
-            map.put("scoreList"+i,list);
-            i++;
-        }
-        map.put("clist",classesList);
-        return map;
+        PageHelper.startPage(pageNum,8);
+        List<Employee_Holiday> employeeHolidayList = employeeMapper.getEmpholidayByUid(user.getUid());
+        PageInfo<Employee_Holiday> pageInfo = new PageInfo<>(employeeHolidayList);
+        request.setAttribute("pageInfo",pageInfo);
+        return "empholiday";
     }
 }

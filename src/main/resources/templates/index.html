@@ -102,6 +102,9 @@
         $("body").on("click","#addHoliday",function(){
           $(".dv_content").attr("src","addHoliday");//学生发起请假
         });
+        $("body").on("click","#getempholiday",function(){
+          $(".dv_content").attr("src","getempholiday");//查看请假信息
+        });
       })
 
     </script>
@@ -248,8 +251,9 @@
                 <li shiro:hasRole="班主任"><a href="#" id="addEmployeeHoliday">发起请假</a></li>
                 <li shiro:hasRole="讲师"><a href="#" id="add2">发起请假</a></li>
                 <li shiro:hasRole="班主任"><a href="#" id="updateStudentHoliday">请假审批</a></li>
-                <li shiro:hasRole="讲师"><a href="updateHoliday">请假审批</a></li>
+                <li shiro:hasRole="讲师"><a href="#" id="updateHoliday">请假审批</a></li>
                 <li shiro:hasRole="校长"><a href="updateholiday">请假审批</a></li>
+                <li shiro:hasAnyRoles="班主任,讲师"><a href="#" id="getempholiday">查看请假信息</a></li>
               </ul>
             </li>
           </ul>

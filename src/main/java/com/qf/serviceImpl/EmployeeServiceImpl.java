@@ -2,6 +2,7 @@ package com.qf.serviceImpl;
 
 import com.qf.mapper.EmployeeMapper;
 import com.qf.pojo.Employee;
+import com.qf.pojo.Employee_Holiday;
 import com.qf.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,6 +51,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee getEmpByEname(String ename) {
         return employeeMapper.getEmpByEname(ename);
+    }
+
+    @Override
+    public List<Employee_Holiday> getEmpholidayByUid(int uid) {
+        return employeeMapper.getEmpholidayByUid(uid);
     }
 
 }

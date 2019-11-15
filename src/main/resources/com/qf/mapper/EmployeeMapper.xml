@@ -29,4 +29,22 @@
     <select id="getBossByRoleName" parameterType="string" resultType="employee">
         select * from employee where job=#{boss}
     </select>
+
+
+<resultMap id="empholidayMap" type="employee_Holiday">
+    <id property="hid" column="hid"></id>
+    <result property="start_date" column="start_date"></result>
+    <result property="end_date" column="end_date"></result>
+    <result property="reason" column="reason"></result>
+    <result property="boss" column="boss"></result>
+    <association property="employee" javaType="employee" column="uid">
+        <id property="eid" column="eid"></id>
+        <result property="ename" column="ename"></result>
+    </association>
+</resultMap>
+
+    <select id="getEmpholidayByUid" resultMap="empholidayMap">
+        select * from employee_holiday,employee where employee_holiday.uid=employee.uid and employee.uid=#{uid}
+    </select>
+
 </mapper>

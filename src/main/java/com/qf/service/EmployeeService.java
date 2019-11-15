@@ -1,6 +1,7 @@
 package com.qf.service;
 
 import com.qf.pojo.Employee;
+import com.qf.pojo.Employee_Holiday;
 
 import java.util.List;
 
@@ -27,4 +28,6 @@ public interface EmployeeService {
     public Employee getEmployeeByUid(int uid);
     //搜索员工，用姓名
     public Employee getEmpByEname(String ename);
+    //查询自己请假信息
+    public List<Employee_Holiday> getEmpholidayByUid(int uid);
 }
